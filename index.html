@@ -76,9 +76,83 @@
     .gradient-border {
       background: linear-gradient(135deg, rgba(0,242,254,0.4), rgba(251,133,0,0.3), rgba(139,92,246,0.3));
     }
+    /* Anti-Overflow Global Rules */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+    p, span, h1, h2, h3, h4, h5, h6, a, div {
+      overflow-wrap: break-word;
+    }
+    /* Viewport Frame Styles for Desktop, Tablet, Mobile preview */
+    .viewport-desktop {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 auto;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    .viewport-tablet {
+      max-width: 768px !important;
+      width: 100% !important;
+      margin: 16px auto !important;
+      border-radius: 28px !important;
+      border: 8px solid #1e293b !important;
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.35), 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+      overflow-x: hidden !important;
+      background-color: #070b16 !important;
+    }
+    .viewport-mobile {
+      max-width: 390px !important;
+      width: 100% !important;
+      margin: 16px auto !important;
+      border-radius: 40px !important;
+      border: 10px solid #1e293b !important;
+      box-shadow: 0 0 50px rgba(251, 133, 0, 0.35), 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+      overflow-x: hidden !important;
+      background-color: #070b16 !important;
+    }
   </style>
 </head>
 <body class="bg-[#070b16] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen flex flex-col">
+
+  <!-- TOP VIEWPORT SWITCHER TOOLBAR -->
+  <aside id="viewportToolbar" aria-label="Kawalan Paparan Skrin" class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-md border-b border-dark-700/80 px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2 shadow-2xl">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-dark-800 border border-dark-600 text-[11px] font-bold text-amber-300">
+        <i data-lucide="sliders" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span class="hidden sm:inline">PILIHAN</span> PAPARAN:
+      </span>
+      <div class="inline-flex rounded-xl p-0.5 sm:p-1 bg-dark-850 border border-dark-700">
+        <button onclick="setViewport('desktop')" id="btnVpDesktop" class="px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow">
+          <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Desktop</span> <span>(100%)</span>
+        </button>
+        <button onclick="setViewport('tablet')" id="btnVpTablet" class="px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-dark-750">
+          <i data-lucide="tablet" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Tablet</span> <span>(768px)</span>
+        </button>
+        <button onclick="setViewport('mobile')" id="btnVpMobile" class="px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-dark-750">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Mobile</span> <span>(390px)</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span id="viewportStatusText" class="text-[11px] text-slate-400 hidden lg:inline">Paparan Skrin Komputer (100%)</span>
+      <button onclick="openCloudSyncModal()" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 transition-all" title="Bantuan Sync Kelas ke Telefon & GitHub Pages">
+        <i data-lucide="cloud" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span>Sync Cloud / HP</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- APP CONTAINER (Responsive viewport wrapper) -->
+  <div id="appContainer" class="w-full transition-all duration-300 min-h-screen flex flex-col viewport-desktop mx-auto relative">
 
   <!-- TOP PROMO BANNER -->
   <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white py-2 px-4 text-center text-xs md:text-sm font-semibold tracking-wide flex items-center justify-center gap-2 shadow-md">
@@ -88,21 +162,21 @@
   </div>
 
   <!-- NAVIGATION -->
-  <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-dark-700/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-dark-700/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-xl shadow-amber-500/30 group-hover:scale-105 transition-transform duration-300 bg-black shrink-0">
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group min-w-0">
+        <div class="relative w-11 h-11 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-xl shadow-amber-500/30 group-hover:scale-105 transition-transform duration-300 bg-black shrink-0">
           <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy Logo" class="w-full h-full object-cover" />
         </div>
-        <div>
-          <span class="font-display font-black text-lg sm:text-xl tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">MasterAzrul Empire Suite AI</span>
-          <span class="block text-[11px] font-extrabold tracking-wider text-amber-300 uppercase">Master AI Academy • Tutor Digital Anda</span>
+        <div class="min-w-0">
+          <span class="font-display font-black text-sm sm:text-lg md:text-xl tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent truncate block">MasterAzrul Empire Suite AI</span>
+          <span class="block text-[9px] sm:text-[11px] font-extrabold tracking-wider text-amber-300 uppercase truncate">Master AI Academy • Tutor Digital Anda</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+      <nav class="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium text-slate-300 shrink-0">
         <a href="#katalog" class="hover:text-cyan-400 transition-colors">5 Sistem</a>
         <a href="#kelas" class="hover:text-amber-400 transition-colors flex items-center gap-1.5 font-bold text-amber-300">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -114,20 +188,38 @@
       </nav>
 
       <!-- CTA Action -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-md transition-all">
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-md transition-all">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
           <span>WhatsApp</span>
         </a>
-        <a href="#kalkulator" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md transition-all">
-          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        <a href="#kalkulator" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md transition-all">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Tempah</span>
         </a>
         <!-- PROMINENT ADMIN LOGIN BUTTON -->
-        <button onclick="openAdminModal()" id="adminNavBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-display font-black text-xs bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-dark-900 shadow-lg shadow-amber-500/30 hover:scale-105 transition-all duration-200 border-2 border-yellow-200">
-          <i data-lucide="shield-check" class="w-4 h-4 text-dark-900"></i>
+        <button onclick="openAdminModal()" id="adminNavBtn" class="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl font-display font-black text-[11px] sm:text-xs bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-dark-900 shadow-lg shadow-amber-500/30 hover:scale-105 transition-all duration-200 border-2 border-yellow-200">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-dark-900"></i>
           <span id="adminNavText" class="font-black tracking-wide">LOGIN ADMIN</span>
         </button>
+        <!-- MOBILE MENU HAMBURGER BUTTON -->
+        <button onclick="toggleMobileMenu()" id="mobileMenuBtn" aria-label="Buka Menu Paparan" class="md:hidden p-2 rounded-xl bg-dark-800 text-slate-300 hover:text-white border border-dark-600 focus:outline-none">
+          <i data-lucide="menu" id="mobileMenuIcon" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenuDrawer" class="hidden md:hidden bg-dark-900/98 border-t border-dark-700/80 px-4 py-4 space-y-2.5 backdrop-blur-xl">
+      <a href="#katalog" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-dark-800 hover:text-cyan-400 transition-colors">✨ 5 Sistem Digital</a>
+      <a href="#kelas" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-bold text-amber-300 hover:bg-dark-800 transition-colors">🔴 Slot Kelas &amp; Webinar</a>
+      <a href="#kombo" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-dark-800 hover:text-cyan-400 transition-colors">🎁 Pakej Kombo Diskaun</a>
+      <a href="#kalkulator" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-dark-800 hover:text-cyan-400 transition-colors">🧮 Bina Pakej Sendiri</a>
+      <a href="#faq" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-dark-800 hover:text-cyan-400 transition-colors">❓ Soalan Lazim (FAQ)</a>
+      <div class="pt-2 border-t border-dark-700 flex flex-col gap-2">
+        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" class="w-full text-center py-2.5 px-3 rounded-xl font-bold text-xs bg-emerald-500 text-white flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Hubungi WhatsApp
+        </a>
       </div>
     </div>
   </header>
@@ -682,17 +774,21 @@
           </div>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button onclick="openClassForm()" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
+          <button onclick="openClassForm()" class="px-3.5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             <span>+ Tambah Kelas</span>
           </button>
-          <button onclick="copyShareableLink()" title="Salin pautan khas yang mengandungi data kelas terkini supaya orang luar boleh lihat serta merta" class="px-4 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
-            <i data-lucide="share-2" class="w-4 h-4"></i>
-            <span>🔗 Salin Link Kongsi (Untuk Orang Luar)</span>
+          <button onclick="openCloudSyncModal()" title="Pusat sync data kelas supaya telefon & seluruh dunia melihat jadual terkini" class="px-3.5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
+            <i data-lucide="cloud" class="w-4 h-4"></i>
+            <span>⚡ Sync GitHub / HP</span>
           </button>
-          <button onclick="exportClassesDataFile()" title="Muat turun fail classes-data.js untuk ditampal ke hosting web" class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5 transition-colors">
+          <button onclick="copyShareableLink()" title="Salin pautan khas yang mengandungi data kelas terkini supaya orang luar boleh lihat serta merta" class="px-3.5 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span>📋 Salin Link Kongsi</span>
+          </button>
+          <button onclick="exportClassesDataFile()" title="Muat turun fail classes-data.js untuk ditampal ke hosting web" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5 transition-colors">
             <i data-lucide="download" class="w-4 h-4"></i>
-            <span>💾 Muat Turun Fail Data</span>
+            <span>📥 Muat Turun Data</span>
           </button>
           <button onclick="adminLogout()" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-rose-950/80 text-rose-300 hover:text-white border border-rose-500/40 flex items-center gap-1.5 transition-colors">
             <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -1100,6 +1196,8 @@
     </div>
   </footer>
 
+  </div> <!-- /#appContainer -->
+
   <!-- FLOATING ADMIN LOGIN BUTTON (BOTTOM LEFT - ALWAYS VISIBLE) -->
   <button onclick="openAdminModal()" id="floatingAdminBtn" title="Log Masuk Portal Admin MasterAzrul" class="fixed bottom-6 left-6 z-50 px-4 py-3 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-dark-900 font-display font-black text-xs sm:text-sm shadow-2xl shadow-amber-500/50 hover:scale-110 transition-transform duration-300 flex items-center gap-2 border-2 border-yellow-200">
     <i data-lucide="shield-check" class="w-5 h-5 text-dark-900"></i>
@@ -1110,6 +1208,116 @@
   <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/50 hover:scale-110 transition-transform duration-300" title="Hubungi WhatsApp">
     <i data-lucide="message-circle" class="w-7 h-7"></i>
   </a>
+
+  <!-- CLOUD SYNC & GITHUB PAGES INTEGRATION MODAL -->
+  <div id="cloudSyncModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-dark-850 max-w-2xl w-full rounded-3xl border border-cyan-500/50 p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6 pb-4 border-b border-dark-700">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300">
+            <i data-lucide="cloud-lightning" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider block">PENGURUSAN DATA KELAS</span>
+            <h3 class="font-display font-black text-xl sm:text-2xl text-white">Sync Jadual Kelas ke Telefon &amp; GitHub</h3>
+          </div>
+        </div>
+        <button onclick="closeCloudSyncModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Explanation Notice -->
+      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs sm:text-sm leading-relaxed mb-6">
+        <div class="flex items-start gap-2.5">
+          <i data-lucide="info" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+          <div>
+            <strong>Mengapa kelas tak muncul bila buka di telefon?</strong><br />
+            GitHub Pages ialah hosting statik. Apabila anda simpan kelas di PC, ia tersimpan di memori PC anda. Agar telefon dan orang luar di seluruh dunia dapat melihat kelas baru ini, pilih salah satu kaedah di bawah:
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <!-- METHOD 1: Download & Drag-and-drop to GitHub (Paling Mudah) -->
+        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-cyan-500/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-cyan-500 text-dark-900 font-black text-xs flex items-center justify-center">1</span>
+              <h4 class="text-sm font-bold text-white">Kaedah 1: Muat Turun &amp; Drag ke GitHub (100% Berjaya &amp; Percuma)</h4>
+            </div>
+            <span class="text-[11px] font-black bg-cyan-500/20 text-cyan-300 px-2.5 py-0.5 rounded-full border border-cyan-500/30">DISYORKAN</span>
+          </div>
+          <p class="text-xs text-slate-300 mb-4">
+            Muat turun fail <code class="text-amber-300 bg-dark-900 px-1 py-0.5 rounded">classes-data.js</code> terkini daripada komputer ini, kemudian masukkan ke repository GitHub anda:
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="exportClassesDataFile()" class="px-4 py-2.5 rounded-xl font-bold text-xs bg-cyan-500 hover:bg-cyan-400 text-dark-900 flex items-center gap-2 shadow">
+              <i data-lucide="download" class="w-4 h-4"></i> Muat Turun classes-data.js Terkini
+            </button>
+            <a href="https://github.com/masterazrulacademyai/Suite-Ai-Mall" target="_blank" class="px-4 py-2.5 rounded-xl font-bold text-xs bg-dark-700 hover:bg-dark-600 text-white flex items-center gap-2 border border-dark-500">
+              <i data-lucide="external-link" class="w-4 h-4"></i> Buka Repo GitHub Anda &rarr;
+            </a>
+          </div>
+          <div class="mt-3 text-[11px] text-slate-400">
+            <strong>3 Langkah Mudah:</strong> Buka repo GitHub di atas &rarr; Tarik fail <code class="text-cyan-300">classes-data.js</code> ke dalam laman GitHub &rarr; Klik butang hijau <em>'Commit changes'</em>. Dalam 30 saat, telefon anda akan terus memaparkan kelas ini!
+          </div>
+        </div>
+
+        <!-- METHOD 2: Direct GitHub Token Auto-Commit -->
+        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-amber-500/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-500 text-dark-900 font-black text-xs flex items-center justify-center">2</span>
+              <h4 class="text-sm font-bold text-white">Kaedah 2: Auto-Sync 1-Klik via GitHub Token (Tanpa Perlu Upload)</h4>
+            </div>
+            <span class="text-[11px] font-black bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30">PANTAS</span>
+          </div>
+          <p class="text-xs text-slate-300 mb-3">
+            Masukkan GitHub Personal Access Token (PAT) anda sekali sahaja. Anda hanya perlu tekan butang 'Sync Sekarang' setiap kali tambah kelas baru!
+          </p>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">GitHub Personal Access Token (PAT):</label>
+              <div class="flex gap-2">
+                <input type="password" id="githubTokenInput" placeholder="ghp_xxxxxxxxxxxx atau github_pat_xxxxxxxxxxxx" class="flex-1 bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono" />
+                <button onclick="syncToGitHubApi()" class="px-4 py-2 rounded-xl font-bold text-xs bg-amber-500 hover:bg-amber-400 text-dark-900 flex items-center gap-1.5 shrink-0 shadow">
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i> Sync Sekarang
+                </button>
+              </div>
+            </div>
+            <div id="githubSyncStatus" class="text-xs font-semibold hidden"></div>
+            <p class="text-[11px] text-slate-400">
+              * Dapatkan token di: <a href="https://github.com/settings/tokens" target="_blank" class="text-cyan-400 underline">GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens</a> (Tandakan skop: <code class="text-amber-300">repo</code>). Token disimpan selamat di browser PC anda.
+            </p>
+          </div>
+        </div>
+
+        <!-- METHOD 3: Salin Link Kongsi Terus -->
+        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-emerald-500/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-500 text-dark-900 font-black text-xs flex items-center justify-center">3</span>
+              <h4 class="text-sm font-bold text-white">Kaedah 3: Salin Pautan Kongsi Lengkap (Untuk WhatsApp / Bio)</h4>
+            </div>
+            <span class="text-[11px] font-black bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/30">SEGERA</span>
+          </div>
+          <p class="text-xs text-slate-300 mb-3">
+            Pautan khas ini mengandungi semua data kelas yang anda simpan di PC. Bila anda buka link ini di telefon atau beri pada prospek di WhatsApp, telefon akan automatik sync dan memaparkan semua kelas tersebut!
+          </p>
+          <button onclick="copyShareableLink()" class="w-full py-2.5 rounded-xl font-bold text-xs bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center justify-center gap-2 shadow">
+            <i data-lucide="share-2" class="w-4 h-4"></i> Salin Pautan Kongsi Lengkap
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-dark-700 flex justify-end">
+        <button onclick="closeCloudSyncModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-dark-750 hover:bg-dark-700 text-slate-300">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- LIGHTBOX MODAL FOR POSTERS -->
   <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4">
@@ -1632,26 +1840,39 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     function getStoredClasses() {
       // 1. Semak data dalam localStorage
       const stored = localStorage.getItem('masterazrul_classes');
+      let localList = null;
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
+            localList = parsed;
           }
         } catch (e) {
           console.error('Error parsing stored classes', e);
         }
       }
-      // 2. Semak fail classes-data.js (baseline untuk orang luar)
-      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES)) {
-        localStorage.setItem('masterazrul_classes', JSON.stringify(window.MASTERAZRUL_DEFAULT_CLASSES));
-        return window.MASTERAZRUL_DEFAULT_CLASSES;
+
+      // Jika admin sedang login di PC, utamakan data localList yang disimpan admin
+      if (isAdminLoggedIn() && localList) {
+        return localList;
       }
-      return DEFAULT_CLASSES;
+
+      // Jika orang luar / telefon buka:
+      // Semak jika window.MASTERAZRUL_DEFAULT_CLASSES wujud (daripada fail classes-data.js terkini di GitHub Pages)
+      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
+        // Jika pelawat belum ada data atau data tempatan bukan custom admin
+        if (!localList || localStorage.getItem('masterazrul_classes_source') !== 'admin_custom') {
+          return window.MASTERAZRUL_DEFAULT_CLASSES;
+        }
+      }
+
+      return localList || DEFAULT_CLASSES;
     }
 
     function saveStoredClasses(classes) {
       localStorage.setItem('masterazrul_classes', JSON.stringify(classes));
+      localStorage.setItem('masterazrul_classes_source', 'admin_custom');
+      localStorage.setItem('masterazrul_classes_updated_at', new Date().toISOString());
       renderClasses();
     }
 
@@ -1664,9 +1885,7 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       const controlBar = document.getElementById('adminControlBar');
       const loginPrompt = document.getElementById('adminLoginPrompt');
       const adminNavText = document.getElementById('adminNavText');
-      const adminNavBtn = document.getElementById('adminNavBtn');
       const floatingAdminText = document.getElementById('floatingAdminText');
-      const floatingAdminBtn = document.getElementById('floatingAdminBtn');
 
       if (controlBar) {
         if (isLogged) {
@@ -1723,114 +1942,105 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         if (cls.status === 'open') {
           statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">🟢 Pendaftaran Dibuka</span>`;
         } else if (cls.status === 'limited') {
-          statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">⚡ Tempat Terhad</span>`;
+          statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">⚠️ Tempat Terhad</span>`;
         } else {
           statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40">🔴 Pendaftaran Ditutup</span>`;
         }
 
-        const isClosed = cls.status === 'closed';
+        const encodedWaMsg = encodeURIComponent(`Salam Tuan Azrul, saya berminat nak booking sesi kelas: "${cls.title}" (${cls.date}, ${cls.time}). Boleh saya dapatkan pautan penyertaan?`);
+        const waLink = `https://wa.me/${cls.whatsapp || '60123456789'}?text=${encodedWaMsg}`;
+
+        let actionButton = '';
+        if (cls.externalLink && cls.externalLink.trim() !== '') {
+          actionButton = `
+            <a href="${cls.externalLink}" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-4 rounded-xl text-xs font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white flex items-center justify-center gap-1.5 shadow transition-all">
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Daftar Sekarang
+            </a>
+          `;
+        } else {
+          actionButton = `
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-4 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white flex items-center justify-center gap-1.5 shadow transition-all">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Tempah via WhatsApp
+            </a>
+          `;
+        }
 
         html += `
-          <div class="bg-dark-850 rounded-3xl border border-dark-700/80 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xl glow-card group">
+          <div class="bg-dark-850 rounded-3xl border border-dark-700/80 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-xl">
             <div>
-              <!-- Poster Thumbnail -->
-              <div class="relative w-full aspect-[16/10] bg-dark-900 overflow-hidden cursor-pointer" onclick="openLightbox('${cls.poster}', '${cls.title.replace(/'/g, "\\'")}')">
-                <img src="${cls.poster}" alt="${cls.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+              <!-- Poster Image Thumbnail -->
+              <div class="relative w-full h-52 bg-black overflow-hidden cursor-pointer" onclick="openLightbox('${cls.poster}', '${escapeHtml(cls.title)}')">
+                <img src="${cls.poster}" alt="${escapeHtml(cls.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='assets/images/manual-google-antigravity.svg'" />
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-850 via-transparent to-transparent opacity-80"></div>
                 <div class="absolute top-3 left-3">
                   ${statusBadge}
                 </div>
-                <div class="absolute top-3 right-3">
-                  <span class="px-2.5 py-1 rounded-xl text-xs font-black bg-black/80 text-amber-400 border border-amber-500/40 shadow backdrop-blur-sm">
+                <div class="absolute top-3 right-3 bg-dark-900/80 backdrop-blur px-2.5 py-1 rounded-lg text-[11px] font-bold text-amber-300 border border-amber-400/40">
+                  ${cls.seats || 'Slot Terhad'}
+                </div>
+                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-bold text-white">
+                  <span class="bg-black/60 backdrop-blur px-2.5 py-1 rounded-md text-cyan-300 flex items-center gap-1">
+                    <i data-lucide="video" class="w-3.5 h-3.5"></i> ${cls.platform}
+                  </span>
+                  <span class="bg-amber-500 text-dark-900 px-2.5 py-1 rounded-md font-black">
                     ${cls.price}
                   </span>
                 </div>
-                <div class="absolute bottom-2 right-3 text-[10px] text-slate-400 flex items-center gap-1 bg-dark-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                  <i data-lucide="zoom-in" class="w-3 h-3"></i> Zoom Poster
-                </div>
               </div>
 
-              <!-- Body Details -->
+              <!-- Content Area -->
               <div class="p-6">
-                <h3 class="font-display font-black text-lg sm:text-xl text-white group-hover:text-amber-300 line-clamp-2 leading-snug">
+                <!-- Date & Time Meta -->
+                <div class="flex flex-wrap items-center gap-3 text-xs text-slate-300 mb-3 pb-3 border-b border-dark-700/70">
+                  <div class="flex items-center gap-1.5 text-amber-300 font-semibold">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                    <span>${cls.date}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-cyan-300 font-semibold">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                    <span>${cls.time}</span>
+                  </div>
+                </div>
+
+                <h3 class="font-display font-black text-xl text-white group-hover:text-amber-400 transition-colors leading-snug">
                   ${cls.title}
                 </h3>
 
-                <div class="mt-4 space-y-2 text-xs text-slate-300">
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="calendar" class="w-4 h-4 text-amber-400 shrink-0"></i>
-                    <span class="font-semibold text-slate-200">${cls.date}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="clock" class="w-4 h-4 text-cyan-400 shrink-0"></i>
-                    <span>${cls.time}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="video" class="w-4 h-4 text-purple-400 shrink-0"></i>
-                    <span>${cls.platform}</span>
-                  </div>
-                  ${cls.seats ? `
-                    <div class="flex items-center gap-2">
-                      <i data-lucide="users" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-                      <span class="text-emerald-300 font-bold">${cls.seats}</span>
-                    </div>
-                  ` : ''}
-                </div>
-
-                <p class="mt-4 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                <p class="text-xs text-slate-300 mt-2.5 line-clamp-3 leading-relaxed">
                   ${cls.desc}
                 </p>
               </div>
             </div>
 
             <!-- Footer Action Buttons -->
-            <div class="p-6 pt-0 border-t border-dark-700/50 mt-4">
-              <div class="pt-4 flex flex-col gap-2">
-                <!-- User Booking Buttons -->
-                <div class="flex items-center gap-2">
-                  <button onclick="showClassDetail('${cls.id}')" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-slate-200 border border-dark-600 transition-colors">
-                    Info Lengkap
-                  </button>
-
-                  ${!isClosed ? `
-                    <button onclick="bookClassWhatsApp('${cls.id}')" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white shadow flex items-center justify-center gap-1 transition-transform hover:scale-[1.02]">
-                      <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                      <span>Booking WA</span>
-                    </button>
-                    ${cls.externalLink ? `
-                      <a href="${cls.externalLink}" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 flex items-center justify-center gap-1" title="Buka Link Pendaftaran">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                      </a>
-                    ` : ''}
-                  ` : `
-                    <button disabled class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 text-slate-500 cursor-not-allowed border border-dark-700">
-                      Penuh
-                    </button>
-                  `}
-
-                  <button onclick="copyClassDirectLink('${cls.id}')" title="Salin Link Sesi Kelas Ini" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-cyan-400 border border-dark-600 flex items-center justify-center gap-1 transition-colors">
-                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
-
-                <!-- Admin Action Toolbar (Only shown if logged in) -->
-                ${isLogged ? `
-                  <div class="mt-2 pt-2 border-t border-amber-500/30 flex items-center justify-between text-[11px] bg-amber-500/10 p-2 rounded-xl">
-                    <span class="font-bold text-amber-300">Urus:</span>
-                    <div class="flex items-center gap-1.5">
-                      <button onclick="openClassForm('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-amber-400 rounded border border-dark-600 font-bold">
-                        Edit
-                      </button>
-                      <button onclick="toggleClassStatus('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-cyan-400 rounded border border-dark-600 font-bold" title="Tukar Status Buka/Tutup">
-                        Status
-                      </button>
-                      <button onclick="deleteClass('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-rose-900/60 text-rose-400 rounded border border-dark-600 font-bold">
-                        Padam
-                      </button>
-                    </div>
-                  </div>
-                ` : ''}
+            <div class="p-6 pt-0">
+              <div class="flex items-center gap-2 pt-4 border-t border-dark-700/70">
+                ${actionButton}
+                <button onclick="showClassDetail('${cls.id}')" class="p-2.5 rounded-xl bg-dark-750 hover:bg-dark-700 text-slate-300 hover:text-white border border-dark-600 transition-colors" title="Lihat Maklumat Penuh">
+                  <i data-lucide="info" class="w-4 h-4"></i>
+                </button>
+                <button onclick="copyClassDirectLink('${cls.id}')" class="p-2.5 rounded-xl bg-dark-750 hover:bg-dark-700 text-cyan-300 hover:text-cyan-200 border border-dark-600 transition-colors" title="Salin Link Kelas Ini">
+                  <i data-lucide="share-2" class="w-4 h-4"></i>
+                </button>
               </div>
+
+              <!-- Admin Inline Controls -->
+              ${isLogged ? `
+                <div class="mt-3 pt-3 border-t border-amber-500/30 flex items-center justify-between gap-1 text-[11px] bg-amber-500/5 p-2 rounded-xl">
+                  <span class="text-amber-400 font-bold">Admin:</span>
+                  <div class="flex items-center gap-1.5">
+                    <button onclick="editClass('${cls.id}')" class="px-2 py-1 rounded bg-dark-800 hover:bg-dark-700 text-amber-300 font-bold border border-amber-500/40">
+                      Ubah
+                    </button>
+                    <button onclick="toggleClassStatus('${cls.id}')" class="px-2 py-1 rounded bg-dark-800 hover:bg-dark-700 text-cyan-300 font-bold border border-cyan-500/40">
+                      Status
+                    </button>
+                    <button onclick="deleteClass('${cls.id}')" class="px-2 py-1 rounded bg-rose-950/70 hover:bg-rose-900 text-rose-300 font-bold border border-rose-500/40">
+                      Padam
+                    </button>
+                  </div>
+                </div>
+              ` : ''}
             </div>
           </div>
         `;
@@ -1840,20 +2050,164 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       lucide.createIcons();
     }
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Viewport Switcher Functions (Desktop, Tablet, Mobile)
+    function setViewport(mode) {
+      const container = document.getElementById('appContainer');
+      const btnDesktop = document.getElementById('btnVpDesktop');
+      const btnTablet = document.getElementById('btnVpTablet');
+      const btnMobile = document.getElementById('btnVpMobile');
+      const statusText = document.getElementById('viewportStatusText');
+
+      if (!container) return;
+
+      container.classList.remove('viewport-desktop', 'viewport-tablet', 'viewport-mobile');
+      
+      const defaultBtnClass = "px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-dark-750";
+      if (btnDesktop) btnDesktop.className = defaultBtnClass;
+      if (btnTablet) btnTablet.className = defaultBtnClass;
+      if (btnMobile) btnMobile.className = defaultBtnClass;
+
+      if (mode === 'tablet') {
+        container.classList.add('viewport-tablet');
+        if (btnTablet) btnTablet.className = "px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow";
+        if (statusText) statusText.textContent = "Paparan Tablet (768px iPad / Galaxy Tab)";
+      } else if (mode === 'mobile') {
+        container.classList.add('viewport-mobile');
+        if (btnMobile) btnMobile.className = "px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all bg-gradient-to-r from-amber-500 to-orange-500 text-dark-900 shadow";
+        if (statusText) statusText.textContent = "Paparan Telefon Pintar (390px Mobile Frame)";
+      } else {
+        container.classList.add('viewport-desktop');
+        if (btnDesktop) btnDesktop.className = "px-2.5 sm:px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow";
+        if (statusText) statusText.textContent = "Paparan Skrin Komputer (100% Full Width)";
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Mobile Hamburger Menu
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const icon = document.getElementById('mobileMenuIcon');
+      if (!drawer) return;
+
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        if (icon) icon.setAttribute('data-lucide', 'x');
+      } else {
+        drawer.classList.add('hidden');
+        if (icon) icon.setAttribute('data-lucide', 'menu');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Cloud Sync Modal Controls
+    function openCloudSyncModal() {
+      const modal = document.getElementById('cloudSyncModal');
+      if (!modal) return;
+      const savedToken = localStorage.getItem('masterazrul_github_token');
+      const tokenInput = document.getElementById('githubTokenInput');
+      if (savedToken && tokenInput) {
+        tokenInput.value = savedToken;
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeCloudSyncModal() {
+      const modal = document.getElementById('cloudSyncModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    // Auto-Sync to GitHub API
+    async function syncToGitHubApi() {
+      const tokenInput = document.getElementById('githubTokenInput');
+      const token = tokenInput ? tokenInput.value.trim() : '';
+      if (!token) {
+        alert('Sila masukkan GitHub Personal Access Token (PAT) anda terlebih dahulu.');
+        return;
+      }
+
+      const repo = 'masterazrulacademyai/Suite-Ai-Mall';
+      const filePath = 'classes-data.js';
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+      const statusDiv = document.getElementById('githubSyncStatus');
+
+      if (statusDiv) {
+        statusDiv.classList.remove('hidden');
+        statusDiv.innerHTML = '<span class="text-amber-400">Sedang menghubungi GitHub API...</span>';
+      }
+
+      try {
+        let sha = '';
+        const getRes = await fetch(apiUrl, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+        }
+
+        const classes = getStoredClasses();
+        const content = `// ========================================================\n// MASTERAZRUL EMPIRE SUITE AI - DATA SESI KELAS & WEBINAR\n// Dikemaskini secara automatik melalui Portal Admin\n// ========================================================\n\nwindow.MASTERAZRUL_DATA_UPDATED_AT = "${new Date().toISOString()}";\nwindow.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};\n`;
+        
+        const b64Content = btoa(unescape(encodeURIComponent(content)));
+
+        const putRes = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Kemaskini jadual kelas via Admin MasterAzrul Suite AI',
+            content: b64Content,
+            sha: sha || undefined
+          })
+        });
+
+        if (putRes.ok) {
+          localStorage.setItem('masterazrul_github_token', token);
+          if (statusDiv) {
+            statusDiv.innerHTML = '<span class="text-emerald-400 font-bold">✅ BERJAYA DISYNC KE GITHUB PAGES! Dalam 30-60 saat, telefon bimbit & semua pengunjung luar akan melihat jadual kelas terkini!</span>';
+          }
+          alert('✅ BERJAYA DIKEMASKINI KE GITHUB PAGES!\n\nFail classes-data.js telah dikemaskini terus di repository GitHub anda.\nDalam 30 saat, buka laman web di telefon anda dan sesi kelas baru anda akan terus muncul!');
+        } else {
+          const errData = await putRes.json();
+          throw new Error(errData.message || 'Gagal menyimpan ke GitHub');
+        }
+      } catch (err) {
+        if (statusDiv) {
+          statusDiv.innerHTML = `<span class="text-rose-400 font-bold">❌ Ralat: ${err.message}</span>`;
+        }
+        alert('Ralat semasa sync ke GitHub: ' + err.message + '\n\nSebagai alternatif paling mudah, gunakan Kaedah 1: Muat Turun Fail classes-data.js dan drag & drop ke laman GitHub anda.');
+      }
+    }
+
     // Admin Modal Controls
     function openAdminModal() {
       if (isAdminLoggedIn()) {
-        const leave = confirm('Anda kini sedang log masuk sebagai Admin MasterAzrul. Adakah anda ingin log keluar?');
-        if (leave) {
-          adminLogout();
-        }
+        const kelasSec = document.getElementById('kelas');
+        if (kelasSec) kelasSec.scrollIntoView({ behavior: 'smooth' });
         return;
       }
       const modal = document.getElementById('adminLoginModal');
       document.getElementById('adminLoginError').classList.add('hidden');
-      if (document.getElementById('adminUsernameInput')) {
-        document.getElementById('adminUsernameInput').value = '';
-      }
+      document.getElementById('adminUsernameInput').value = '';
       document.getElementById('adminPasswordInput').value = '';
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -1870,69 +2224,46 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       const user = document.getElementById('adminUsernameInput').value.trim();
       const pass = document.getElementById('adminPasswordInput').value.trim();
 
-      // Semakan rasmi ID: admin & Password: Azrul810316#
       if (user === 'admin' && pass === 'Azrul810316#') {
         sessionStorage.setItem('masterazrul_admin_session', 'true');
         closeAdminModal();
         updateAdminUI();
         renderClasses();
-        alert('Selamat datang, Admin MasterAzrul! Mod pengurusan sesi kelas kini aktif.');
+        alert('✅ Log Masuk Berjaya! Selamat datang, Admin Master Azrul.');
+        const el = document.getElementById('kelas');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else {
         document.getElementById('adminLoginError').classList.remove('hidden');
       }
     }
 
     function adminLogout() {
+      if (!confirm('Adakah anda pasti mahu log keluar daripada portal admin?')) return;
       sessionStorage.removeItem('masterazrul_admin_session');
       updateAdminUI();
       renderClasses();
-      alert('Anda telah berjaya log keluar dari mod Admin.');
     }
 
-    // Class Form (Add / Edit)
-    function openClassForm(classId = '') {
+    // Class Form Controls
+    function openClassForm() {
+      document.getElementById('classFormTitle').textContent = 'Tambah Sesi Kelas Baru';
+      document.getElementById('formClassId').value = '';
+      document.getElementById('formClassTitle').value = '';
+      document.getElementById('formClassDate').value = '';
+      document.getElementById('formClassTime').value = '';
+      document.getElementById('formClassPlatform').value = 'Google Meet (Live)';
+      document.getElementById('formClassPrice').value = 'RM 29.00';
+      document.getElementById('formClassStatus').value = 'open';
+      document.getElementById('formClassSeats').value = 'Terhad 30 Peserta';
+      document.getElementById('formPosterUrl').value = 'assets/images/manual-google-antigravity.svg';
+      document.getElementById('formPosterPreview').src = 'assets/images/manual-google-antigravity.svg';
+      document.getElementById('formClassWhatsApp').value = '60123456789';
+      document.getElementById('formClassExternalLink').value = '';
+      document.getElementById('formClassDesc').value = '';
+
       const modal = document.getElementById('classFormModal');
-      const titleEl = document.getElementById('classFormTitle');
-
-      if (classId) {
-        const classes = getStoredClasses();
-        const cls = classes.find(c => c.id === classId);
-        if (cls) {
-          titleEl.textContent = 'Kemaskini Sesi Kelas';
-          document.getElementById('formClassId').value = cls.id;
-          document.getElementById('formClassTitle').value = cls.title;
-          document.getElementById('formClassDate').value = cls.date;
-          document.getElementById('formClassTime').value = cls.time;
-          document.getElementById('formClassPlatform').value = cls.platform;
-          document.getElementById('formClassPrice').value = cls.price;
-          document.getElementById('formClassStatus').value = cls.status;
-          document.getElementById('formClassSeats').value = cls.seats || '';
-          document.getElementById('formPosterPreview').src = cls.poster;
-          document.getElementById('formPosterUrl').value = cls.poster;
-          document.getElementById('formClassWhatsApp').value = cls.whatsapp || '60123456789';
-          document.getElementById('formClassExternalLink').value = cls.externalLink || '';
-          document.getElementById('formClassDesc').value = cls.desc;
-        }
-      } else {
-        titleEl.textContent = 'Tambah Sesi Kelas Baru';
-        document.getElementById('formClassId').value = '';
-        document.getElementById('formClassTitle').value = '';
-        document.getElementById('formClassDate').value = '';
-        document.getElementById('formClassTime').value = '8:30 Malam - 10:30 Malam';
-        document.getElementById('formClassPlatform').value = 'Google Meet';
-        document.getElementById('formClassPrice').value = 'PERCUMA';
-        document.getElementById('formClassStatus').value = 'open';
-        document.getElementById('formClassSeats').value = 'Terhad 30 Peserta';
-        document.getElementById('formPosterPreview').src = 'assets/images/manual-google-antigravity.svg';
-        document.getElementById('formPosterUrl').value = 'assets/images/manual-google-antigravity.svg';
-        document.getElementById('formClassWhatsApp').value = '60123456789';
-        document.getElementById('formClassExternalLink').value = '';
-        document.getElementById('formClassDesc').value = '';
-      }
-
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      lucide.createIcons();
     }
 
     function closeClassForm() {
@@ -1941,10 +2272,34 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       modal.classList.remove('flex');
     }
 
-    function updatePosterPreview(url) {
-      if (url && url.trim()) {
-        document.getElementById('formPosterPreview').src = url.trim();
-      }
+    function editClass(classId) {
+      const classes = getStoredClasses();
+      const cls = classes.find(c => c.id === classId);
+      if (!cls) return;
+
+      document.getElementById('classFormTitle').textContent = 'Kemaskini Sesi Kelas';
+      document.getElementById('formClassId').value = cls.id;
+      document.getElementById('formClassTitle').value = cls.title || '';
+      document.getElementById('formClassDate').value = cls.date || '';
+      document.getElementById('formClassTime').value = cls.time || '';
+      document.getElementById('formClassPlatform').value = cls.platform || '';
+      document.getElementById('formClassPrice').value = cls.price || '';
+      document.getElementById('formClassStatus').value = cls.status || 'open';
+      document.getElementById('formClassSeats').value = cls.seats || '';
+      document.getElementById('formPosterUrl').value = cls.poster || 'assets/images/manual-google-antigravity.svg';
+      document.getElementById('formPosterPreview').src = cls.poster || 'assets/images/manual-google-antigravity.svg';
+      document.getElementById('formClassWhatsApp').value = cls.whatsapp || '60123456789';
+      document.getElementById('formClassExternalLink').value = cls.externalLink || '';
+      document.getElementById('formClassDesc').value = cls.desc || '';
+
+      const modal = document.getElementById('classFormModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function setPresetPoster(url) {
+      document.getElementById('formPosterUrl').value = url;
+      document.getElementById('formPosterPreview').src = url;
     }
 
     function handlePosterUpload(e) {
@@ -2019,7 +2374,12 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
 
       saveStoredClasses(classes);
       closeClassForm();
-      alert('Sesi kelas berjaya disimpan!');
+      
+      // Auto open cloud sync notification
+      const wantSync = confirm('✅ Sesi kelas berjaya disimpan di peranti ini!\n\n⚠️ SUPAYA TELEFON ANDA & PELAWAT LUAR DAPAT LIHAT KELAS INI:\nAdakah anda mahu buka pusat "Sync GitHub / HP" sekarang untuk mengemaskini GitHub Pages atau menyalin pautan kongsi?');
+      if (wantSync) {
+        openCloudSyncModal();
+      }
     }
 
     function deleteClass(classId) {
@@ -2034,65 +2394,40 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       const cls = classes.find(c => c.id === classId);
       if (!cls) return;
 
-      if (cls.status === 'open') {
-        cls.status = 'limited';
-      } else if (cls.status === 'limited') {
-        cls.status = 'closed';
-      } else {
-        cls.status = 'open';
-      }
+      if (cls.status === 'open') cls.status = 'limited';
+      else if (cls.status === 'limited') cls.status = 'closed';
+      else cls.status = 'open';
 
       saveStoredClasses(classes);
     }
 
-    // Detail Modal & WhatsApp Booking
+    // Class Detail Modal Controls
     function showClassDetail(classId) {
       const classes = getStoredClasses();
       const cls = classes.find(c => c.id === classId);
       if (!cls) return;
 
-      document.getElementById('classDetailTitle').textContent = cls.title;
-      document.getElementById('classDetailDateTime').textContent = `${cls.date} (${cls.time})`;
-      document.getElementById('classDetailPlatform').textContent = cls.platform;
-      document.getElementById('classDetailPrice').textContent = cls.price;
-      document.getElementById('classDetailSeats').textContent = cls.seats || 'Terbuka';
-      document.getElementById('classDetailDesc').textContent = cls.desc;
-      document.getElementById('classDetailImg').src = cls.poster;
+      document.getElementById('detailClassTitle').textContent = cls.title;
+      document.getElementById('detailClassDate').textContent = cls.date;
+      document.getElementById('detailClassTime').textContent = cls.time;
+      document.getElementById('detailClassPlatform').textContent = cls.platform;
+      document.getElementById('detailClassPrice').textContent = cls.price;
+      document.getElementById('detailClassSeats').textContent = cls.seats || 'Slot Terhad';
+      document.getElementById('detailClassDesc').textContent = cls.desc;
+      document.getElementById('detailClassPoster').src = cls.poster;
 
-      const statusEl = document.getElementById('classDetailStatus');
-      if (cls.status === 'open') {
-        statusEl.innerHTML = '<span class="text-emerald-400">🟢 Pendaftaran Dibuka</span>';
-      } else if (cls.status === 'limited') {
-        statusEl.innerHTML = '<span class="text-amber-400">⚡ Tempat Terhad</span>';
+      const encodedWaMsg = encodeURIComponent(`Salam Tuan Azrul, saya berminat nak booking sesi kelas: "${cls.title}" (${cls.date}, ${cls.time}). Boleh saya dapatkan pautan penyertaan?`);
+      const waLink = `https://wa.me/${cls.whatsapp || '60123456789'}?text=${encodedWaMsg}`;
+
+      const bookBtn = document.getElementById('detailClassBookBtn');
+      if (cls.externalLink && cls.externalLink.trim() !== '') {
+        bookBtn.href = cls.externalLink;
+        bookBtn.innerHTML = '<i data-lucide="external-link" class="w-4 h-4"></i> Daftar Sekarang';
       } else {
-        statusEl.innerHTML = '<span class="text-rose-400">🔴 Pendaftaran Ditutup / Penuh</span>';
+        bookBtn.href = waLink;
+        bookBtn.innerHTML = '<i data-lucide="message-circle" class="w-4 h-4"></i> Tempah via WhatsApp';
       }
 
-      const btnContainer = document.getElementById('classDetailActionBtns');
-      const isClosed = cls.status === 'closed';
-
-      let btns = `
-        <button onclick="closeClassDetailModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-dark-700 text-slate-300 hover:bg-dark-600">
-          Tutup
-        </button>
-      `;
-
-      if (!isClosed) {
-        btns += `
-          <button onclick="bookClassWhatsApp('${cls.id}')" class="px-5 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-white shadow-md flex items-center gap-1.5">
-            <i data-lucide="message-circle" class="w-4 h-4"></i> Booking Slot via WhatsApp
-          </button>
-        `;
-        if (cls.externalLink) {
-          btns += `
-            <a href="${cls.externalLink}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-xs font-black bg-cyan-500 hover:bg-cyan-400 text-dark-900 shadow-md flex items-center gap-1.5">
-              <i data-lucide="external-link" class="w-4 h-4"></i> Buka Link Pendaftaran
-            </a>
-          `;
-        }
-      }
-
-      btnContainer.innerHTML = btns;
       const modal = document.getElementById('classDetailModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -2105,48 +2440,29 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       modal.classList.remove('flex');
     }
 
-    function bookClassWhatsApp(classId) {
-      const classes = getStoredClasses();
-      const cls = classes.find(c => c.id === classId);
-      if (!cls) return;
-
-      const waNumber = cls.whatsapp || '60123456789';
-      const msg = `*TEMPAHAN SLOT KELAS - MASTERAZRUL EMPIRE SUITE AI*
-----------------------------------------
-*Kelas:* ${cls.title}
-*Tarikh:* ${cls.date} (${cls.time})
-*Platform:* ${cls.platform}
-*Yuran:* ${cls.price}
-----------------------------------------
-Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila sahkan kekosongan tempat duduk saya. Terima kasih!`;
-
-      const encoded = encodeURIComponent(msg);
-      window.open(`https://wa.me/${waNumber}?text=${encoded}`, '_blank');
-    }
-
-    // ==========================================
-    // SYNC & DATA SHARING FOR OUTSIDE VISITORS
-    // ==========================================
-
+    // Semak parameter URL untuk sync data kelas
     function checkUrlSync() {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
         
-        // 1. Terima data kelas dari pautan sync (?sync=...)
-        const syncParam = urlParams.get('sync');
-        if (syncParam) {
-          const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(syncParam))));
-          const parsed = JSON.parse(jsonStr);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            localStorage.setItem('masterazrul_classes', JSON.stringify(parsed));
-            setTimeout(() => {
-              alert('✨ Selamat datang! Jadual kelas terkini dari MasterAzrul Empire telah berjaya disegerakkan.');
-            }, 500);
+        // 1. Sync payload (?sync=BASE64)
+        const syncPayload = params.get('sync');
+        if (syncPayload) {
+          try {
+            const jsonStr = decodeURIComponent(escape(atob(syncPayload)));
+            const syncedClasses = JSON.parse(jsonStr);
+            if (Array.isArray(syncedClasses) && syncedClasses.length > 0) {
+              localStorage.setItem('masterazrul_classes', JSON.stringify(syncedClasses));
+              localStorage.setItem('masterazrul_classes_source', 'admin_custom');
+              console.log('Successfully synced classes from URL payload');
+            }
+          } catch (e) {
+            console.error('Failed to parse sync payload from URL', e);
           }
         }
 
-        // 2. Terus buka modal kelas jika pautan mengandungi (?c=classId)
-        const classTarget = urlParams.get('c');
+        // 2. Direct class focus (?c=classId)
+        const classTarget = params.get('c');
         if (classTarget) {
           setTimeout(() => {
             const el = document.getElementById('kelas');
@@ -2162,7 +2478,17 @@ Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila s
     // Salin Link Kongsi yang memuatkan data kelas terkini terus ke dalam URL
     function copyShareableLink() {
       const classes = getStoredClasses();
-      const jsonStr = JSON.stringify(classes);
+      
+      // Bersihkan base64 data URL panjang agar URL kekal pendek dan tidak gagal di WhatsApp
+      const compactClasses = classes.map(c => {
+        let p = c.poster;
+        if (p && p.startsWith('data:')) {
+          p = 'assets/images/manual-google-antigravity.svg';
+        }
+        return { ...c, poster: p };
+      });
+
+      const jsonStr = JSON.stringify(compactClasses);
       const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
       
       const baseUrl = window.location.origin + window.location.pathname;
@@ -2170,7 +2496,7 @@ Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila s
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(shareUrl).then(() => {
-          alert('🔗 LINK KONGSI BERJAYA DISALIN KE CLIPBOARD!\n\nPautan ini mengandungi data kelas terkini yang anda masukkan. Bila anda hantar link ini kepada orang luar atau letak di bio media sosial, sesiapa yang klik link ini akan melihat jadual kelas anda secara terus!');
+          alert('📋 LINK KONGSI BERJAYA DISALIN KE CLIPBOARD!\n\nPautan ini mengandungi data kelas terkini anda. Sesiapa sahaja yang membuka pautan ini di telefon atau peranti lain akan terus melihat kelas anda secara serta merta!');
         }).catch(() => {
           prompt('Salin link kongsi di bawah untuk dihantar kepada orang luar:', shareUrl);
         });
@@ -2179,7 +2505,7 @@ Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila s
       }
     }
 
-    // Muat Turun Fail classes-data.js untuk ditampal ke hosting web
+    // Muat Turun Fail classes-data.js untuk ditampal ke hosting GitHub
     function exportClassesDataFile() {
       const classes = getStoredClasses();
       const content = `// ========================================================
@@ -2187,6 +2513,7 @@ Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila s
 // Fail ini mengandungi data kelas rasmi yang dilihat oleh orang luar
 // ========================================================
 
+window.MASTERAZRUL_DATA_UPDATED_AT = "${new Date().toISOString()}";
 window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
 `;
       const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
@@ -2199,7 +2526,7 @@ window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      alert('💾 Fail "classes-data.js" telah dimuat turun!\n\nUntuk hosting web (seperti Netlify, Vercel, atau cPanel), gantikan fail classes-data.js dalam folder anda sebelum muat naik supaya semua orang luar yang membuka domain utama anda melihat data kelas terkini ini secara kekal.');
+      alert('📥 Fail "classes-data.js" telah dimuat turun!\n\nLANGKAH UPDATE GITHUB PAGES:\n1. Buka repo anda di: https://github.com/masterazrulacademyai/Suite-Ai-Mall\n2. Tarik (drag & drop) fail "classes-data.js" yang baru dimuat turun tadi ke situ.\n3. Klik butang hijau "Commit changes".\n\nDalam 30 saat, semua telefon dan pelawat luar akan melihat jadual kelas terkini anda!');
     }
 
     // Salin link terus ke satu sesi kelas spesifik
@@ -2223,11 +2550,13 @@ window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
       checkUrlSync();
       updateAdminUI();
       renderClasses();
+      if (window.lucide) lucide.createIcons();
     });
     // In case DOM is already loaded:
     checkUrlSync();
     updateAdminUI();
     renderClasses();
+    if (window.lucide) lucide.createIcons();
 
     // Close Modals on ESC key
     document.addEventListener('keydown', (e) => {
@@ -2237,6 +2566,7 @@ window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
         closeAdminModal();
         closeClassForm();
         closeClassDetailModal();
+        closeCloudSyncModal();
       }
     });
   </script>
