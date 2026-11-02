@@ -1794,79 +1794,57 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
 
     const DEFAULT_CLASSES = [
       {
-        id: 'cls_antigravity_1',
-        title: 'Kelas Live Google Antigravity: Bina Web & APK Pertama Anda',
-        date: 'Setiap Sabtu Malam',
-        time: '8:30 PM - 10:30 PM',
-        platform: 'Google Meet (Live Coaching)',
-        price: 'PERCUMA (Eksklusif Pembeli)',
+        id: 'cls_video_ai',
+        title: 'Kelas Membina Video Ai',
+        date: '4/11/2026',
+        time: '9:30 Malam - 11:30 Malam',
+        platform: 'Google Meet',
+        price: '39.90',
         status: 'open',
-        seats: 'Terhad 30 Peserta / Sesi',
-        poster: 'assets/images/manual-google-antigravity.svg',
-        whatsapp: '60123456789',
-        externalLink: '',
-        desc: 'Sesi bimbingan langsung praktikal bersama Master Azrul. Anda akan dibimbing memasang Google Antigravity, menyusun prompt yang tepat, membina portal laman web interaktif, menyambungkan pangkalan data (database) dan mengeksport aplikasi anda ke peranti telefon pintar.'
-      },
-      {
-        id: 'cls_video_2',
-        title: 'Bengkel Intensif: 5 Formula Prompt Video AI Sinematik & Iklan Produk',
-        date: 'Ahad Depan',
-        time: '9:00 PM - 11:00 PM',
-        platform: 'Zoom Webinar HD',
-        price: 'RM 29.00 (Early Bird)',
-        status: 'limited',
-        seats: 'Tinggal 7 Slot Sahaja',
+        seats: 'Terhad 15 Peserta',
         poster: 'assets/images/5-sistem-prompt-video-ai.jpg',
         whatsapp: '60123456789',
         externalLink: '',
-        desc: 'Bongkar rahsia dan formula menghasilkan video AI berkualiti tinggi tanpa kamera mahal atau sewa studio. Pelajari cara menjana watak realistik, animasi 3D, video iklan produk komersial, serta video berformat 9:16 yang mesra FYP.'
+        desc: 'Membina Video AI'
       },
       {
-        id: 'cls_tiktok_3',
-        title: 'Masterclass Raja TikTok: Formula E.M.A.S & FYP Sales Booster 2026',
-        date: '25 Mac 2026',
-        time: '8:30 PM - 10:30 PM',
-        platform: 'Google Meet Interactive',
-        price: 'RM 35.00',
+        id: 'cls_antigravity',
+        title: 'Kelas Google Antigravity',
+        date: '3/11/2026',
+        time: '9:30 Malam - 11:30 Malam',
+        platform: 'Google Meet',
+        price: '39.90',
         status: 'open',
-        seats: 'Baki 14 Slot',
-        poster: 'assets/images/raja-tiktok.jpg',
+        seats: 'Terhad 15 Peserta',
+        poster: 'assets/images/manual-google-antigravity.svg',
         whatsapp: '60123456789',
         externalLink: '',
-        desc: 'Ketahui rahsia tembus masuk FYP dan jana jualan konsisten di TikTok tanpa perlu menari. Praktikal menggunakan Penjana Copywriting Promosi 7 Hari, Formula E.M.A.S penarik audiens, dan teknik simulasi profil viral.'
+        desc: 'Membina Laman Web/Sistem/Platfrom Pembelajaran'
       }
     ];
 
     function getStoredClasses() {
-      // 1. Semak data dalam localStorage
+      // 1. Sentiasa utamakan data kelas dalam localStorage (yang telah dimasukkan atau dikemaskini oleh admin)
+      // Sama ada admin sedang login ATAU sudah log keluar, data ini KEKAL sama & tidak hilang!
       const stored = localStorage.getItem('masterazrul_classes');
-      let localList = null;
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            localList = parsed;
+            return parsed;
           }
         } catch (e) {
           console.error('Error parsing stored classes', e);
         }
       }
 
-      // Jika admin sedang login di PC, utamakan data localList yang disimpan admin
-      if (isAdminLoggedIn() && localList) {
-        return localList;
-      }
-
-      // Jika orang luar / telefon buka:
-      // Semak jika window.MASTERAZRUL_DEFAULT_CLASSES wujud (daripada fail classes-data.js terkini di GitHub Pages)
+      // 2. Jika peranti belum ada data (cth: orang luar buka laman web kali pertama),
+      // muatkan data rasmi daripada fail classes-data.js
       if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
-        // Jika pelawat belum ada data atau data tempatan bukan custom admin
-        if (!localList || localStorage.getItem('masterazrul_classes_source') !== 'admin_custom') {
-          return window.MASTERAZRUL_DEFAULT_CLASSES;
-        }
+        return window.MASTERAZRUL_DEFAULT_CLASSES;
       }
 
-      return localList || DEFAULT_CLASSES;
+      return DEFAULT_CLASSES;
     }
 
     function saveStoredClasses(classes) {
