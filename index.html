@@ -14,6 +14,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Sesi Kelas Global Data -->
+  <script src="classes-data.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -89,42 +91,42 @@
   <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-dark-700/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-amber-500/50 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300 bg-black shrink-0">
-          <img src="assets/images/logo.jpg" alt="Master AI Academy Logo" class="w-full h-full object-cover" />
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-xl shadow-amber-500/30 group-hover:scale-105 transition-transform duration-300 bg-black shrink-0">
+          <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy Logo" class="w-full h-full object-cover" />
         </div>
         <div>
           <span class="font-display font-black text-lg sm:text-xl tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">MasterAzrul Empire Suite AI</span>
-          <span class="block text-[10px] font-bold tracking-wider text-amber-300/90 uppercase">Master AI Academy • Tutor Digital Anda</span>
+          <span class="block text-[11px] font-extrabold tracking-wider text-amber-300 uppercase">Master AI Academy • Tutor Digital Anda</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
-        <a href="#katalog" class="hover:text-cyan-400 transition-colors">5 Sistem Utama</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#katalog" class="hover:text-cyan-400 transition-colors">5 Sistem</a>
         <a href="#kelas" class="hover:text-amber-400 transition-colors flex items-center gap-1.5 font-bold text-amber-300">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           Slot Kelas
         </a>
         <a href="#kombo" class="hover:text-cyan-400 transition-colors">Pakej Kombo</a>
         <a href="#kalkulator" class="hover:text-cyan-400 transition-colors">Bina Pakej</a>
-        <a href="#kelebihan" class="hover:text-cyan-400 transition-colors">Kelebihan</a>
         <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
       </nav>
 
       <!-- CTA Action -->
-      <div class="flex items-center gap-2.5">
-        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-md transition-all duration-300 hover:scale-[1.02]">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-md transition-all">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
           <span>WhatsApp</span>
         </a>
-        <a href="#kalkulator" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
+        <a href="#kalkulator" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md transition-all">
           <i data-lucide="shopping-bag" class="w-4 h-4"></i>
           <span>Tempah</span>
         </a>
-        <button onclick="openAdminModal()" id="adminNavBtn" title="Portal Admin / Urus Kelas" class="p-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-amber-400 border border-dark-700 transition-colors flex items-center gap-1 text-xs font-bold">
-          <i data-lucide="lock" class="w-4 h-4 text-amber-400"></i>
-          <span class="hidden xl:inline" id="adminNavText">Admin</span>
+        <!-- PROMINENT ADMIN LOGIN BUTTON -->
+        <button onclick="openAdminModal()" id="adminNavBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl font-display font-black text-xs bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-dark-900 shadow-lg shadow-amber-500/30 hover:scale-105 transition-all duration-200 border-2 border-yellow-200">
+          <i data-lucide="shield-check" class="w-4 h-4 text-dark-900"></i>
+          <span id="adminNavText" class="font-black tracking-wide">LOGIN ADMIN</span>
         </button>
       </div>
     </div>
@@ -138,15 +140,16 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <!-- Official Master AI Academy Emblem -->
-      <div class="flex flex-col items-center justify-center mb-6">
+      <div class="flex flex-col items-center justify-center mb-8">
         <div class="relative group cursor-pointer">
-          <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 opacity-40 blur-xl group-hover:opacity-80 transition duration-500"></div>
-          <img src="assets/images/logo.jpg" alt="Master AI Academy Emblem" class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-amber-400/80 shadow-2xl p-1 bg-black group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 opacity-60 blur-2xl group-hover:opacity-90 transition duration-500"></div>
+          <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy Emblem" class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-amber-400 shadow-2xl p-1 bg-black group-hover:scale-105 transition-transform duration-300" />
         </div>
-        <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800/95 border border-amber-500/40 shadow-inner text-xs sm:text-sm">
-          <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
-          <span class="text-amber-300 font-extrabold tracking-wide uppercase">MASTER AI ACADEMY • KAMI LATIH, ANDA MENDAHULUI</span>
+        <div class="mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-dark-850/95 border-2 border-amber-400/80 shadow-lg text-xs sm:text-sm">
+          <span class="flex h-2.5 w-2.5 rounded-full bg-amber-400 animate-ping"></span>
+          <span class="text-amber-300 font-black tracking-wider uppercase">MASTER AI ACADEMY • KAMI LATIH, ANDA MENDAHULUI</span>
         </div>
+        <span class="text-xs text-amber-400/80 font-bold mt-1.5 tracking-wide">🎓 Tutor Digital Anda</span>
       </div>
 
       <!-- Main Headline -->
@@ -643,14 +646,25 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-amber-400 shadow-xl shadow-amber-500/20 bg-black">
+          <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy" class="w-full h-full object-cover" />
+        </div>
         <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase tracking-widest">
           <i data-lucide="calendar" class="w-3.5 h-3.5"></i> JADUAL KELAS &amp; BENGKEL LANGSUNG
         </span>
-        <h2 class="mt-4 font-display font-black text-3xl sm:text-4xl text-white">Sesi Kelas &amp; Bimbingan Praktikal</h2>
+        <h2 class="mt-3 font-display font-black text-3xl sm:text-4xl text-white">Sesi Kelas &amp; Bimbingan Praktikal</h2>
         <p class="mt-3 text-slate-300 text-sm sm:text-base">
           Belajar secara 'Live' bersama <strong>Master Azrul</strong>. Kuasai kemahiran AI secara praktikal, bersoal jawab secara langsung, dan siapkan sistem anda dalam sesi bimbingan interaktif!
         </p>
+
+        <!-- PROMINENT BUTTON FOR ADMIN LOGIN IN CLASS SECTION -->
+        <div id="adminLoginPrompt" class="mt-6 flex justify-center">
+          <button onclick="openAdminModal()" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl font-display font-black text-xs sm:text-sm bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:brightness-110 text-dark-900 shadow-xl shadow-amber-500/30 hover:scale-105 transition-all duration-200 border-2 border-yellow-200">
+            <i data-lucide="key" class="w-5 h-5 text-dark-900"></i>
+            <span>🔑 KLIK SINI UNTUK LOGIN ADMIN (TAMBAH / URUS KELAS)</span>
+          </button>
+        </div>
       </div>
 
       <!-- Admin Control Bar (Only visible when admin logged in) -->
@@ -667,14 +681,22 @@
             <p class="text-xs text-slate-300 mt-0.5">Anda boleh menambah sesi kelas baharu, kemaskini maklumat, tukar status kerusi, atau padam sesi.</p>
           </div>
         </div>
-        <div class="flex items-center gap-2.5">
-          <button onclick="openClassForm()" class="px-5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 flex items-center gap-2 shadow-lg transition-all hover:scale-105">
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openClassForm()" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
-            <span>+ Tambah Sesi Kelas Baru</span>
+            <span>+ Tambah Kelas</span>
           </button>
-          <button onclick="adminLogout()" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-rose-950/80 text-rose-300 hover:text-white border border-rose-500/40 flex items-center gap-1.5 transition-colors">
+          <button onclick="copyShareableLink()" title="Salin pautan khas yang mengandungi data kelas terkini supaya orang luar boleh lihat serta merta" class="px-4 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span>🔗 Salin Link Kongsi (Untuk Orang Luar)</span>
+          </button>
+          <button onclick="exportClassesDataFile()" title="Muat turun fail classes-data.js untuk ditampal ke hosting web" class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>💾 Muat Turun Fail Data</span>
+          </button>
+          <button onclick="adminLogout()" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-rose-950/80 text-rose-300 hover:text-white border border-rose-500/40 flex items-center gap-1.5 transition-colors">
             <i data-lucide="log-out" class="w-4 h-4"></i>
-            <span>Log Keluar Admin</span>
+            <span>Log Keluar</span>
           </button>
         </div>
       </div>
@@ -1058,26 +1080,34 @@
   <footer class="mt-auto bg-dark-900 border-t border-dark-700 py-10 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <img src="assets/images/logo.jpg" alt="Master AI Academy" class="w-8 h-8 rounded-full border border-amber-400/60 object-cover" />
-          <span class="font-bold text-slate-200">MasterAzrul Empire Suite AI</span>
-          <span class="text-slate-400">&bull; Master AI Academy &copy; 2026. Hak Cipta Terpelihara.</span>
+        <div class="flex items-center gap-3.5">
+          <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy" class="w-10 h-10 rounded-full border-2 border-amber-400 object-cover shadow-lg" />
+          <div class="text-left">
+            <span class="font-bold text-slate-200 block text-sm">MasterAzrul Empire Suite AI</span>
+            <span class="text-slate-400 text-[11px]">&copy; 2026 Master AI Academy • Tutor Digital Anda. Hak Cipta Terpelihara.</span>
+          </div>
         </div>
-        <div class="flex items-center gap-4 text-slate-400">
+        <div class="flex flex-wrap items-center gap-4 text-slate-400">
           <a href="#katalog" class="hover:text-cyan-400">5 Sistem</a>
           <a href="#kelas" class="hover:text-amber-400 font-bold text-amber-300">Slot Kelas</a>
           <a href="#kombo" class="hover:text-cyan-400">Pakej Kombo</a>
           <a href="https://wa.me/60123456789" class="hover:text-emerald-400">Sokongan WhatsApp</a>
-          <button onclick="openAdminModal()" class="hover:text-amber-400 flex items-center gap-1 text-slate-400 hover:underline">
-            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Portal Admin
+          <button onclick="openAdminModal()" class="hover:text-amber-400 flex items-center gap-1.5 text-amber-400 font-bold bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/30 hover:bg-amber-500/20">
+            <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i> Portal Admin
           </button>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/50 hover:scale-110 transition-transform duration-300">
+  <!-- FLOATING ADMIN LOGIN BUTTON (BOTTOM LEFT - ALWAYS VISIBLE) -->
+  <button onclick="openAdminModal()" id="floatingAdminBtn" title="Log Masuk Portal Admin MasterAzrul" class="fixed bottom-6 left-6 z-50 px-4 py-3 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-dark-900 font-display font-black text-xs sm:text-sm shadow-2xl shadow-amber-500/50 hover:scale-110 transition-transform duration-300 flex items-center gap-2 border-2 border-yellow-200">
+    <i data-lucide="shield-check" class="w-5 h-5 text-dark-900"></i>
+    <span id="floatingAdminText">Login Admin</span>
+  </button>
+
+  <!-- FLOATING WHATSAPP BUTTON (BOTTOM RIGHT) -->
+  <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/50 hover:scale-110 transition-transform duration-300" title="Hubungi WhatsApp">
     <i data-lucide="message-circle" class="w-7 h-7"></i>
   </a>
 
@@ -1126,26 +1156,27 @@
       </button>
 
       <div class="text-center mb-6">
-        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 mx-auto flex items-center justify-center text-amber-300 mb-3">
-          <i data-lucide="lock" class="w-7 h-7"></i>
+        <div class="w-20 h-20 rounded-full mx-auto mb-3 overflow-hidden border-2 border-amber-400 shadow-xl shadow-amber-500/30 bg-black">
+          <img src="logo.jpg" onerror="this.src='assets/images/logo.jpg'" alt="Master AI Academy" class="w-full h-full object-cover" />
         </div>
-        <h3 class="font-display font-black text-2xl text-white">Log Masuk Pengajar / Admin</h3>
-        <p class="text-xs text-slate-400 mt-1">Masukkan kata laluan untuk mengurus jadual kelas &amp; bengkel MasterAzrul.</p>
+        <h3 class="font-display font-black text-2xl text-white">Log Masuk Admin MasterAzrul</h3>
+        <p class="text-xs text-slate-400 mt-1">Sila masukkan ID Pengguna &amp; Kata Laluan rasmi untuk mengurus kelas.</p>
       </div>
 
       <form onsubmit="handleAdminLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Kata Laluan Admin:</label>
-          <input type="password" id="adminPasswordInput" required placeholder="Masukkan kata laluan" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400" />
+          <label class="block text-xs font-semibold text-slate-300 mb-1">ID Admin:</label>
+          <input type="text" id="adminUsernameInput" required placeholder="Masukkan ID Admin" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Kata Laluan (Password):</label>
+          <input type="password" id="adminPasswordInput" required placeholder="Masukkan Kata Laluan" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
         </div>
         <div id="adminLoginError" class="text-rose-400 text-xs font-semibold hidden">
-          Kata laluan tidak tepat. Sila cuba lagi.
+          ID Admin atau Kata Laluan tidak tepat. Sila semak semula.
         </div>
-        <div class="text-[11px] text-slate-500">
-          *Kata laluan lalai: <code class="text-amber-400 font-bold bg-dark-900 px-1 py-0.5 rounded">masterazrul88</code>
-        </div>
-        <button type="submit" class="w-full py-3.5 px-4 rounded-xl font-display font-black text-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
-          <i data-lucide="key" class="w-4 h-4"></i> Log Masuk Sekarang
+        <button type="submit" class="w-full py-3.5 px-4 rounded-xl font-display font-black text-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]">
+          <i data-lucide="key" class="w-4 h-4"></i> Sahkan &amp; Log Masuk
         </button>
       </form>
     </div>
@@ -1599,15 +1630,23 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     ];
 
     function getStoredClasses() {
+      // 1. Semak data dalam localStorage
       const stored = localStorage.getItem('masterazrul_classes');
       if (stored) {
         try {
-          return JSON.parse(stored);
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
         } catch (e) {
           console.error('Error parsing stored classes', e);
         }
       }
-      localStorage.setItem('masterazrul_classes', JSON.stringify(DEFAULT_CLASSES));
+      // 2. Semak fail classes-data.js (baseline untuk orang luar)
+      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES)) {
+        localStorage.setItem('masterazrul_classes', JSON.stringify(window.MASTERAZRUL_DEFAULT_CLASSES));
+        return window.MASTERAZRUL_DEFAULT_CLASSES;
+      }
       return DEFAULT_CLASSES;
     }
 
@@ -1623,8 +1662,11 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     function updateAdminUI() {
       const isLogged = isAdminLoggedIn();
       const controlBar = document.getElementById('adminControlBar');
+      const loginPrompt = document.getElementById('adminLoginPrompt');
       const adminNavText = document.getElementById('adminNavText');
       const adminNavBtn = document.getElementById('adminNavBtn');
+      const floatingAdminText = document.getElementById('floatingAdminText');
+      const floatingAdminBtn = document.getElementById('floatingAdminBtn');
 
       if (controlBar) {
         if (isLogged) {
@@ -1634,14 +1676,20 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         }
       }
 
-      if (adminNavText && adminNavBtn) {
+      if (loginPrompt) {
         if (isLogged) {
-          adminNavText.textContent = 'Admin (Aktif)';
-          adminNavBtn.classList.add('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+          loginPrompt.classList.add('hidden');
         } else {
-          adminNavText.textContent = 'Admin';
-          adminNavBtn.classList.remove('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+          loginPrompt.classList.remove('hidden');
         }
+      }
+
+      if (adminNavText) {
+        adminNavText.textContent = isLogged ? 'ADMIN (AKTIF)' : 'LOGIN ADMIN';
+      }
+
+      if (floatingAdminText) {
+        floatingAdminText.textContent = isLogged ? 'Admin (Aktif)' : 'Login Admin';
       }
     }
 
@@ -1759,6 +1807,10 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
                       Penuh
                     </button>
                   `}
+
+                  <button onclick="copyClassDirectLink('${cls.id}')" title="Salin Link Sesi Kelas Ini" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-cyan-400 border border-dark-600 flex items-center justify-center gap-1 transition-colors">
+                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+                  </button>
                 </div>
 
                 <!-- Admin Action Toolbar (Only shown if logged in) -->
@@ -1799,6 +1851,9 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       }
       const modal = document.getElementById('adminLoginModal');
       document.getElementById('adminLoginError').classList.add('hidden');
+      if (document.getElementById('adminUsernameInput')) {
+        document.getElementById('adminUsernameInput').value = '';
+      }
       document.getElementById('adminPasswordInput').value = '';
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -1812,15 +1867,16 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
 
     function handleAdminLogin(e) {
       e.preventDefault();
-      const input = document.getElementById('adminPasswordInput').value.trim();
-      const currentPassword = localStorage.getItem('masterazrul_admin_pw') || 'masterazrul88';
+      const user = document.getElementById('adminUsernameInput').value.trim();
+      const pass = document.getElementById('adminPasswordInput').value.trim();
 
-      if (input === currentPassword || input === 'admin123') {
+      // Semakan rasmi ID: admin & Password: Azrul810316#
+      if (user === 'admin' && pass === 'Azrul810316#') {
         sessionStorage.setItem('masterazrul_admin_session', 'true');
         closeAdminModal();
         updateAdminUI();
         renderClasses();
-        alert('Selamat kembali, Master Azrul! Portal pengurusan kelas kini diaktifkan.');
+        alert('Selamat datang, Admin MasterAzrul! Mod pengurusan sesi kelas kini aktif.');
       } else {
         document.getElementById('adminLoginError').classList.remove('hidden');
       }
@@ -2068,12 +2124,108 @@ Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila s
       window.open(`https://wa.me/${waNumber}?text=${encoded}`, '_blank');
     }
 
+    // ==========================================
+    // SYNC & DATA SHARING FOR OUTSIDE VISITORS
+    // ==========================================
+
+    function checkUrlSync() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 1. Terima data kelas dari pautan sync (?sync=...)
+        const syncParam = urlParams.get('sync');
+        if (syncParam) {
+          const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(syncParam))));
+          const parsed = JSON.parse(jsonStr);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            localStorage.setItem('masterazrul_classes', JSON.stringify(parsed));
+            setTimeout(() => {
+              alert('✨ Selamat datang! Jadual kelas terkini dari MasterAzrul Empire telah berjaya disegerakkan.');
+            }, 500);
+          }
+        }
+
+        // 2. Terus buka modal kelas jika pautan mengandungi (?c=classId)
+        const classTarget = urlParams.get('c');
+        if (classTarget) {
+          setTimeout(() => {
+            const el = document.getElementById('kelas');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            showClassDetail(classTarget);
+          }, 600);
+        }
+      } catch (err) {
+        console.warn('URL sync notice:', err);
+      }
+    }
+
+    // Salin Link Kongsi yang memuatkan data kelas terkini terus ke dalam URL
+    function copyShareableLink() {
+      const classes = getStoredClasses();
+      const jsonStr = JSON.stringify(classes);
+      const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+      
+      const baseUrl = window.location.origin + window.location.pathname;
+      const shareUrl = `${baseUrl}?sync=${encodeURIComponent(b64)}#kelas`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          alert('🔗 LINK KONGSI BERJAYA DISALIN KE CLIPBOARD!\n\nPautan ini mengandungi data kelas terkini yang anda masukkan. Bila anda hantar link ini kepada orang luar atau letak di bio media sosial, sesiapa yang klik link ini akan melihat jadual kelas anda secara terus!');
+        }).catch(() => {
+          prompt('Salin link kongsi di bawah untuk dihantar kepada orang luar:', shareUrl);
+        });
+      } else {
+        prompt('Salin link kongsi di bawah untuk dihantar kepada orang luar:', shareUrl);
+      }
+    }
+
+    // Muat Turun Fail classes-data.js untuk ditampal ke hosting web
+    function exportClassesDataFile() {
+      const classes = getStoredClasses();
+      const content = `// ========================================================
+// MASTERAZRUL EMPIRE SUITE AI - DATA SESI KELAS & WEBINAR
+// Fail ini mengandungi data kelas rasmi yang dilihat oleh orang luar
+// ========================================================
+
+window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
+`;
+      const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'classes-data.js';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      alert('💾 Fail "classes-data.js" telah dimuat turun!\n\nUntuk hosting web (seperti Netlify, Vercel, atau cPanel), gantikan fail classes-data.js dalam folder anda sebelum muat naik supaya semua orang luar yang membuka domain utama anda melihat data kelas terkini ini secara kekal.');
+    }
+
+    // Salin link terus ke satu sesi kelas spesifik
+    function copyClassDirectLink(classId) {
+      const baseUrl = window.location.origin + window.location.pathname;
+      const classUrl = `${baseUrl}?c=${encodeURIComponent(classId)}#kelas`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(classUrl).then(() => {
+          alert('🔗 Link terus ke sesi kelas ini telah disalin ke clipboard!');
+        }).catch(() => {
+          prompt('Salin link kelas ini:', classUrl);
+        });
+      } else {
+        prompt('Salin link kelas ini:', classUrl);
+      }
+    }
+
     // Initialize Class System & Admin UI on Page Load
     document.addEventListener('DOMContentLoaded', () => {
+      checkUrlSync();
       updateAdminUI();
       renderClasses();
     });
     // In case DOM is already loaded:
+    checkUrlSync();
     updateAdminUI();
     renderClasses();
 
