@@ -798,6 +798,39 @@
     </div>
   </section>
 
+  <!-- SECTION: RAKAMAN VIDEO KELAS -->
+  <section id="rakaman-video" class="py-16 sm:py-20 bg-gradient-to-b from-dark-900 to-dark-850 border-t border-dark-700/80 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-extrabold tracking-widest text-cyan-400 uppercase bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/30">
+          🎬 RAKAMAN KELAS
+        </span>
+        <h2 class="mt-4 font-display font-black text-3xl sm:text-4xl text-white">Tonton Rakaman Kelas</h2>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">Video rakaman kelas terkini — boleh ditonton terus di sini tanpa muat turun.</p>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-[0_0_40px_-10px_rgba(0,242,254,0.25)] bg-black">
+        <!-- 16:9 aspect ratio wrapper -->
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+          <iframe 
+            src="https://drive.google.com/file/d/1cmb72QL3l0liXAp8soZCGN-LKM0Vfc9i/preview" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-slate-500 mt-4">
+        <i data-lucide="info" class="w-3.5 h-3.5 inline-block mr-1 align-text-bottom"></i>
+        Klik butang play untuk memulakan video. Boleh tonton skrin penuh (fullscreen).
+      </p>
+
+    </div>
+  </section>
+
   <!-- SECTION: PAKEJ KOMBO SUPER DISKAUN -->
   <section id="kombo" class="py-20 relative overflow-hidden bg-gradient-to-b from-dark-850 to-dark-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1685,51 +1718,42 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         legacyCache.includes('cls_video_2') || 
         legacyCache.includes('cls_tiktok_3') ||
         legacyCache.includes('5-sistem-prompt-video-ai.jpg') ||
-        legacyCache.includes('manual-google-antigravity.svg')
+        legacyCache.includes('manual-google-antigravity.svg') ||
+        legacyCache.includes('"id":"cls_antigravity"') ||
+        legacyCache.includes('"id": "cls_antigravity"') ||
+        legacyCache.includes('Kelas Google Antigravity')
       )) {
         localStorage.removeItem('masterazrul_classes');
+        console.log('Auto-purge: data dummy lama dibuang dari localStorage');
       }
     } catch (e) {}
 
-    const DEFAULT_CLASSES = [
-      {
-        id: 'cls_antigravity',
-        title: 'Kelas Google Antigravity',
-        date: '3/11/2026',
-        time: '9:30 Malam - 11:30 Malam',
-        platform: 'Google Meet',
-        price: 'RM 39.90',
-        status: 'open',
-        seats: 'Terhad 15 Peserta',
-        poster: 'assets/images/kelas-google-antigravity.jpg',
-        whatsapp: '60123456789',
-        externalLink: '',
-        desc: 'Membina platform/sistem/dashboard dan laman web'
-      }
-    ];
+    // DEFAULT = kosong. Data kelas diambil dari Cloud Database atau localStorage admin sahaja.
+    const DEFAULT_CLASSES = [];
+
+    // ID-ID dummy lama yang perlu dibuang
+    const DUMMY_IDS = ['cls_antigravity_1', 'cls_video_2', 'cls_tiktok_3', 'cls_antigravity'];
 
     function getStoredClasses() {
-      // 1. Semak data dalam localStorage
+      // 1. Semak data dalam localStorage (hanya data yg disimpan oleh admin)
       const stored = localStorage.getItem('masterazrul_classes');
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            // Tapis keluar sebarang data dummy lama jika ada
-            const clean = parsed.filter(c => c.id !== 'cls_antigravity_1' && c.id !== 'cls_video_2' && c.id !== 'cls_tiktok_3');
+          if (Array.isArray(parsed)) {
+            // Tapis keluar sebarang data dummy lama
+            const clean = parsed.filter(c => !DUMMY_IDS.includes(c.id));
             if (clean.length > 0) return clean;
+            // Jika selepas tapis kosong, jangan guna default — tunggu cloud
           }
         } catch (e) {
           console.error('Error parsing stored classes', e);
         }
       }
 
-      // 2. Semak data daripada classes-data.js jika wujud
-      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
-        return window.MASTERAZRUL_DEFAULT_CLASSES;
-      }
-
-      return DEFAULT_CLASSES;
+      // 2. Tiada data yang sah — kembalikan array kosong
+      // (data akan dimuatkan dari cloud oleh syncFromCloud())
+      return [];
     }
 
     async function saveStoredClasses(classes) {
@@ -1760,10 +1784,15 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         const res = await fetch(CLOUD_STORE_URL);
         if (res.ok) {
           const json = await res.json();
-          if (json && json.data && Array.isArray(json.data.classes) && json.data.classes.length > 0) {
+          if (json && json.data && Array.isArray(json.data.classes)) {
+            // Walaupun cloud kosong — override localStorage dengan cloud (buang data lama/dummy)
             localStorage.setItem('masterazrul_classes', JSON.stringify(json.data.classes));
             renderClasses();
-            console.log('Berjaya memuatkan data kelas daripada Cloud Database!');
+            if (json.data.classes.length > 0) {
+              console.log('Berjaya memuatkan ' + json.data.classes.length + ' kelas daripada Cloud Database!');
+            } else {
+              console.log('Cloud Database kosong — tiada kelas untuk dipaparkan.');
+            }
           }
         }
       } catch (e) {
