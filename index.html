@@ -1672,44 +1672,52 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     }
 
     // ==========================================
-    // CLASS MANAGEMENT & ADMIN PORTAL SCRIPT
+    // CLASS MANAGEMENT & REALTIME CLOUD SYNC SCRIPT
     // ==========================================
 
-    // Auto-purge sebarang cache data dummy lama pada semua peranti
+    const CLOUD_STORE_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a19a2a2fb4054e';
+
+    // Auto-purge sebarang cache dummy terawal (contoh lama)
     try {
       const legacyCache = localStorage.getItem('masterazrul_classes');
       if (legacyCache && (
         legacyCache.includes('cls_antigravity_1') || 
         legacyCache.includes('cls_video_2') || 
         legacyCache.includes('cls_tiktok_3') ||
-        legacyCache.includes('cls_video_ai') ||
-        legacyCache.includes('cls_antigravity') ||
-        legacyCache.includes('5-sistem-prompt') ||
+        legacyCache.includes('5-sistem-prompt-video-ai.jpg') ||
         legacyCache.includes('manual-google-antigravity.svg')
       )) {
         localStorage.removeItem('masterazrul_classes');
       }
     } catch (e) {}
 
-    const DEFAULT_CLASSES = [];
+    const DEFAULT_CLASSES = [
+      {
+        id: 'cls_antigravity',
+        title: 'Kelas Google Antigravity',
+        date: '3/11/2026',
+        time: '9:30 Malam - 11:30 Malam',
+        platform: 'Google Meet',
+        price: 'RM 39.90',
+        status: 'open',
+        seats: 'Terhad 15 Peserta',
+        poster: 'assets/images/kelas-google-antigravity.jpg',
+        whatsapp: '60123456789',
+        externalLink: '',
+        desc: 'Membina platform/sistem/dashboard dan laman web'
+      }
+    ];
 
     function getStoredClasses() {
-      // 1. Semak data dalam localStorage (kelas yang dimasukkan oleh admin)
+      // 1. Semak data dalam localStorage
       const stored = localStorage.getItem('masterazrul_classes');
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            // Tapis keluar sebarang data dummy lama
-            const cleanClasses = parsed.filter(c => 
-              c.id !== 'cls_antigravity_1' && 
-              c.id !== 'cls_video_2' && 
-              c.id !== 'cls_tiktok_3' &&
-              c.id !== 'cls_video_ai' &&
-              c.id !== 'cls_antigravity' &&
-              !(c.poster && (c.poster.includes('5-sistem-prompt') || c.poster.includes('manual-google-antigravity.svg')))
-            );
-            return cleanClasses;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            // Tapis keluar sebarang data dummy lama jika ada
+            const clean = parsed.filter(c => c.id !== 'cls_antigravity_1' && c.id !== 'cls_video_2' && c.id !== 'cls_tiktok_3');
+            if (clean.length > 0) return clean;
           }
         } catch (e) {
           console.error('Error parsing stored classes', e);
@@ -1717,25 +1725,50 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       }
 
       // 2. Semak data daripada classes-data.js jika wujud
-      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES)) {
-        const cleanServer = window.MASTERAZRUL_DEFAULT_CLASSES.filter(c => 
-          c.id !== 'cls_antigravity_1' && 
-          c.id !== 'cls_video_2' && 
-          c.id !== 'cls_tiktok_3' &&
-          c.id !== 'cls_video_ai' &&
-          c.id !== 'cls_antigravity'
-        );
-        return cleanServer;
+      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
+        return window.MASTERAZRUL_DEFAULT_CLASSES;
       }
 
-      return [];
+      return DEFAULT_CLASSES;
     }
 
-    function saveStoredClasses(classes) {
+    async function saveStoredClasses(classes) {
       localStorage.setItem('masterazrul_classes', JSON.stringify(classes));
       localStorage.setItem('masterazrul_classes_source', 'admin_custom');
       localStorage.setItem('masterazrul_classes_updated_at', new Date().toISOString());
       renderClasses();
+
+      // AUTO-SYNC TERUS KE CLOUD DATABASE SECARA REALTIME
+      try {
+        await fetch(CLOUD_STORE_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'MasterAzrul Classes Store',
+            data: { classes: classes }
+          })
+        });
+        console.log('Data berjaya disync ke Cloud Database secara realtime!');
+      } catch (err) {
+        console.warn('Ralat Cloud sync:', err);
+      }
+    }
+
+    // Ambil data terkini daripada Cloud Database secara automatik
+    async function syncFromCloud() {
+      try {
+        const res = await fetch(CLOUD_STORE_URL);
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.data && Array.isArray(json.data.classes) && json.data.classes.length > 0) {
+            localStorage.setItem('masterazrul_classes', JSON.stringify(json.data.classes));
+            renderClasses();
+            console.log('Berjaya memuatkan data kelas daripada Cloud Database!');
+          }
+        }
+      } catch (e) {
+        console.warn('Cloud sync error:', e);
+      }
     }
 
     function isAdminLoggedIn() {
@@ -2323,6 +2356,7 @@ window.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};
 
     // Initialize Class System & Admin UI on Page Load
     document.addEventListener('DOMContentLoaded', () => {
+      syncFromCloud();
       checkUrlSync();
       updateAdminUI();
       renderClasses();
