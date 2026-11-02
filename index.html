@@ -15,7 +15,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Sesi Kelas Global Data -->
-  <script src="classes-data.js"></script>
+  <script src="classes-data.js?v=20261102_auto"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -144,10 +144,7 @@
     </div>
     <div class="flex items-center gap-2">
       <span id="viewportStatusText" class="text-[11px] text-slate-400 hidden lg:inline">Paparan Skrin Komputer (100%)</span>
-      <button onclick="openCloudSyncModal()" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 transition-all" title="Bantuan Sync Kelas ke Telefon & GitHub Pages">
-        <i data-lucide="cloud" class="w-3.5 h-3.5 text-amber-400"></i>
-        <span>Sync Cloud / HP</span>
-      </button>
+      
     </div>
   </aside>
 
@@ -778,17 +775,9 @@
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             <span>+ Tambah Kelas</span>
           </button>
-          <button onclick="openCloudSyncModal()" title="Pusat sync data kelas supaya telefon & seluruh dunia melihat jadual terkini" class="px-3.5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
-            <i data-lucide="cloud" class="w-4 h-4"></i>
-            <span>⚡ Sync GitHub / HP</span>
-          </button>
           <button onclick="copyShareableLink()" title="Salin pautan khas yang mengandungi data kelas terkini supaya orang luar boleh lihat serta merta" class="px-3.5 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center gap-1.5 shadow-lg transition-all hover:scale-105">
             <i data-lucide="share-2" class="w-4 h-4"></i>
             <span>📋 Salin Link Kongsi</span>
-          </button>
-          <button onclick="exportClassesDataFile()" title="Muat turun fail classes-data.js untuk ditampal ke hosting web" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5 transition-colors">
-            <i data-lucide="download" class="w-4 h-4"></i>
-            <span>📥 Muat Turun Data</span>
           </button>
           <button onclick="adminLogout()" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-rose-950/80 text-rose-300 hover:text-white border border-rose-500/40 flex items-center gap-1.5 transition-colors">
             <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -1208,116 +1197,6 @@
   <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/50 hover:scale-110 transition-transform duration-300" title="Hubungi WhatsApp">
     <i data-lucide="message-circle" class="w-7 h-7"></i>
   </a>
-
-  <!-- CLOUD SYNC & GITHUB PAGES INTEGRATION MODAL -->
-  <div id="cloudSyncModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-dark-850 max-w-2xl w-full rounded-3xl border border-cyan-500/50 p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-6 pb-4 border-b border-dark-700">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300">
-            <i data-lucide="cloud-lightning" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider block">PENGURUSAN DATA KELAS</span>
-            <h3 class="font-display font-black text-xl sm:text-2xl text-white">Sync Jadual Kelas ke Telefon &amp; GitHub</h3>
-          </div>
-        </div>
-        <button onclick="closeCloudSyncModal()" class="text-slate-400 hover:text-white p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Explanation Notice -->
-      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs sm:text-sm leading-relaxed mb-6">
-        <div class="flex items-start gap-2.5">
-          <i data-lucide="info" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
-          <div>
-            <strong>Mengapa kelas tak muncul bila buka di telefon?</strong><br />
-            GitHub Pages ialah hosting statik. Apabila anda simpan kelas di PC, ia tersimpan di memori PC anda. Agar telefon dan orang luar di seluruh dunia dapat melihat kelas baru ini, pilih salah satu kaedah di bawah:
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-6">
-        <!-- METHOD 1: Download & Drag-and-drop to GitHub (Paling Mudah) -->
-        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-cyan-500/50 transition-all">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-cyan-500 text-dark-900 font-black text-xs flex items-center justify-center">1</span>
-              <h4 class="text-sm font-bold text-white">Kaedah 1: Muat Turun &amp; Drag ke GitHub (100% Berjaya &amp; Percuma)</h4>
-            </div>
-            <span class="text-[11px] font-black bg-cyan-500/20 text-cyan-300 px-2.5 py-0.5 rounded-full border border-cyan-500/30">DISYORKAN</span>
-          </div>
-          <p class="text-xs text-slate-300 mb-4">
-            Muat turun fail <code class="text-amber-300 bg-dark-900 px-1 py-0.5 rounded">classes-data.js</code> terkini daripada komputer ini, kemudian masukkan ke repository GitHub anda:
-          </p>
-          <div class="flex flex-wrap items-center gap-3">
-            <button onclick="exportClassesDataFile()" class="px-4 py-2.5 rounded-xl font-bold text-xs bg-cyan-500 hover:bg-cyan-400 text-dark-900 flex items-center gap-2 shadow">
-              <i data-lucide="download" class="w-4 h-4"></i> Muat Turun classes-data.js Terkini
-            </button>
-            <a href="https://github.com/masterazrulacademyai/Suite-Ai-Mall" target="_blank" class="px-4 py-2.5 rounded-xl font-bold text-xs bg-dark-700 hover:bg-dark-600 text-white flex items-center gap-2 border border-dark-500">
-              <i data-lucide="external-link" class="w-4 h-4"></i> Buka Repo GitHub Anda &rarr;
-            </a>
-          </div>
-          <div class="mt-3 text-[11px] text-slate-400">
-            <strong>3 Langkah Mudah:</strong> Buka repo GitHub di atas &rarr; Tarik fail <code class="text-cyan-300">classes-data.js</code> ke dalam laman GitHub &rarr; Klik butang hijau <em>'Commit changes'</em>. Dalam 30 saat, telefon anda akan terus memaparkan kelas ini!
-          </div>
-        </div>
-
-        <!-- METHOD 2: Direct GitHub Token Auto-Commit -->
-        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-amber-500/50 transition-all">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-amber-500 text-dark-900 font-black text-xs flex items-center justify-center">2</span>
-              <h4 class="text-sm font-bold text-white">Kaedah 2: Auto-Sync 1-Klik via GitHub Token (Tanpa Perlu Upload)</h4>
-            </div>
-            <span class="text-[11px] font-black bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30">PANTAS</span>
-          </div>
-          <p class="text-xs text-slate-300 mb-3">
-            Masukkan GitHub Personal Access Token (PAT) anda sekali sahaja. Anda hanya perlu tekan butang 'Sync Sekarang' setiap kali tambah kelas baru!
-          </p>
-          <div class="space-y-3">
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">GitHub Personal Access Token (PAT):</label>
-              <div class="flex gap-2">
-                <input type="password" id="githubTokenInput" placeholder="ghp_xxxxxxxxxxxx atau github_pat_xxxxxxxxxxxx" class="flex-1 bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono" />
-                <button onclick="syncToGitHubApi()" class="px-4 py-2 rounded-xl font-bold text-xs bg-amber-500 hover:bg-amber-400 text-dark-900 flex items-center gap-1.5 shrink-0 shadow">
-                  <i data-lucide="zap" class="w-3.5 h-3.5"></i> Sync Sekarang
-                </button>
-              </div>
-            </div>
-            <div id="githubSyncStatus" class="text-xs font-semibold hidden"></div>
-            <p class="text-[11px] text-slate-400">
-              * Dapatkan token di: <a href="https://github.com/settings/tokens" target="_blank" class="text-cyan-400 underline">GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens</a> (Tandakan skop: <code class="text-amber-300">repo</code>). Token disimpan selamat di browser PC anda.
-            </p>
-          </div>
-        </div>
-
-        <!-- METHOD 3: Salin Link Kongsi Terus -->
-        <div class="p-5 rounded-2xl bg-dark-800 border border-dark-600 hover:border-emerald-500/50 transition-all">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-emerald-500 text-dark-900 font-black text-xs flex items-center justify-center">3</span>
-              <h4 class="text-sm font-bold text-white">Kaedah 3: Salin Pautan Kongsi Lengkap (Untuk WhatsApp / Bio)</h4>
-            </div>
-            <span class="text-[11px] font-black bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/30">SEGERA</span>
-          </div>
-          <p class="text-xs text-slate-300 mb-3">
-            Pautan khas ini mengandungi semua data kelas yang anda simpan di PC. Bila anda buka link ini di telefon atau beri pada prospek di WhatsApp, telefon akan automatik sync dan memaparkan semua kelas tersebut!
-          </p>
-          <button onclick="copyShareableLink()" class="w-full py-2.5 rounded-xl font-bold text-xs bg-emerald-500 hover:bg-emerald-400 text-dark-900 flex items-center justify-center gap-2 shadow">
-            <i data-lucide="share-2" class="w-4 h-4"></i> Salin Pautan Kongsi Lengkap
-          </button>
-        </div>
-      </div>
-
-      <div class="mt-6 pt-4 border-t border-dark-700 flex justify-end">
-        <button onclick="closeCloudSyncModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-dark-750 hover:bg-dark-700 text-slate-300">
-          Tutup
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- LIGHTBOX MODAL FOR POSTERS -->
   <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4">
@@ -1824,8 +1703,19 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     ];
 
     function getStoredClasses() {
-      // 1. Sentiasa utamakan data kelas dalam localStorage (yang telah dimasukkan atau dikemaskini oleh admin)
-      // Sama ada admin sedang login ATAU sudah log keluar, data ini KEKAL sama & tidak hilang!
+      // Untuk pengunjung luar / telefon bimbit (bukan sesi admin):
+      // SENTIASA gunakan data kelas rasmi daripada classes-data.js di server!
+      // Ini memastikan mana-mana telefon atau peranti luar yang buka link akan terus melihat kelas terkini secara automatik!
+      if (!isAdminLoggedIn()) {
+        if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
+          // Bersihkan sebarang cache lama dalam telefon pelawat
+          localStorage.setItem('masterazrul_classes', JSON.stringify(window.MASTERAZRUL_DEFAULT_CLASSES));
+          return window.MASTERAZRUL_DEFAULT_CLASSES;
+        }
+        return DEFAULT_CLASSES;
+      }
+
+      // Jika admin sedang login di peranti ini:
       const stored = localStorage.getItem('masterazrul_classes');
       if (stored) {
         try {
@@ -1838,13 +1728,7 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         }
       }
 
-      // 2. Jika peranti belum ada data (cth: orang luar buka laman web kali pertama),
-      // muatkan data rasmi daripada fail classes-data.js
-      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
-        return window.MASTERAZRUL_DEFAULT_CLASSES;
-      }
-
-      return DEFAULT_CLASSES;
+      return window.MASTERAZRUL_DEFAULT_CLASSES || DEFAULT_CLASSES;
     }
 
     function saveStoredClasses(classes) {
@@ -2084,98 +1968,6 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       if (window.lucide) lucide.createIcons();
     }
 
-    // Cloud Sync Modal Controls
-    function openCloudSyncModal() {
-      const modal = document.getElementById('cloudSyncModal');
-      if (!modal) return;
-      const savedToken = localStorage.getItem('masterazrul_github_token');
-      const tokenInput = document.getElementById('githubTokenInput');
-      if (savedToken && tokenInput) {
-        tokenInput.value = savedToken;
-      }
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function closeCloudSyncModal() {
-      const modal = document.getElementById('cloudSyncModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    }
-
-    // Auto-Sync to GitHub API
-    async function syncToGitHubApi() {
-      const tokenInput = document.getElementById('githubTokenInput');
-      const token = tokenInput ? tokenInput.value.trim() : '';
-      if (!token) {
-        alert('Sila masukkan GitHub Personal Access Token (PAT) anda terlebih dahulu.');
-        return;
-      }
-
-      const repo = 'masterazrulacademyai/Suite-Ai-Mall';
-      const filePath = 'classes-data.js';
-      const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
-      const statusDiv = document.getElementById('githubSyncStatus');
-
-      if (statusDiv) {
-        statusDiv.classList.remove('hidden');
-        statusDiv.innerHTML = '<span class="text-amber-400">Sedang menghubungi GitHub API...</span>';
-      }
-
-      try {
-        let sha = '';
-        const getRes = await fetch(apiUrl, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
-
-        if (getRes.ok) {
-          const fileData = await getRes.json();
-          sha = fileData.sha;
-        }
-
-        const classes = getStoredClasses();
-        const content = `// ========================================================\n// MASTERAZRUL EMPIRE SUITE AI - DATA SESI KELAS & WEBINAR\n// Dikemaskini secara automatik melalui Portal Admin\n// ========================================================\n\nwindow.MASTERAZRUL_DATA_UPDATED_AT = "${new Date().toISOString()}";\nwindow.MASTERAZRUL_DEFAULT_CLASSES = ${JSON.stringify(classes, null, 2)};\n`;
-        
-        const b64Content = btoa(unescape(encodeURIComponent(content)));
-
-        const putRes = await fetch(apiUrl, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: 'Kemaskini jadual kelas via Admin MasterAzrul Suite AI',
-            content: b64Content,
-            sha: sha || undefined
-          })
-        });
-
-        if (putRes.ok) {
-          localStorage.setItem('masterazrul_github_token', token);
-          if (statusDiv) {
-            statusDiv.innerHTML = '<span class="text-emerald-400 font-bold">✅ BERJAYA DISYNC KE GITHUB PAGES! Dalam 30-60 saat, telefon bimbit & semua pengunjung luar akan melihat jadual kelas terkini!</span>';
-          }
-          alert('✅ BERJAYA DIKEMASKINI KE GITHUB PAGES!\n\nFail classes-data.js telah dikemaskini terus di repository GitHub anda.\nDalam 30 saat, buka laman web di telefon anda dan sesi kelas baru anda akan terus muncul!');
-        } else {
-          const errData = await putRes.json();
-          throw new Error(errData.message || 'Gagal menyimpan ke GitHub');
-        }
-      } catch (err) {
-        if (statusDiv) {
-          statusDiv.innerHTML = `<span class="text-rose-400 font-bold">❌ Ralat: ${err.message}</span>`;
-        }
-        alert('Ralat semasa sync ke GitHub: ' + err.message + '\n\nSebagai alternatif paling mudah, gunakan Kaedah 1: Muat Turun Fail classes-data.js dan drag & drop ke laman GitHub anda.');
-      }
-    }
-
     // Admin Modal Controls
     function openAdminModal() {
       if (isAdminLoggedIn()) {
@@ -2353,11 +2145,7 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       saveStoredClasses(classes);
       closeClassForm();
       
-      // Auto open cloud sync notification
-      const wantSync = confirm('✅ Sesi kelas berjaya disimpan di peranti ini!\n\n⚠️ SUPAYA TELEFON ANDA & PELAWAT LUAR DAPAT LIHAT KELAS INI:\nAdakah anda mahu buka pusat "Sync GitHub / HP" sekarang untuk mengemaskini GitHub Pages atau menyalin pautan kongsi?');
-      if (wantSync) {
-        openCloudSyncModal();
-      }
+      alert('✅ Sesi kelas berjaya disimpan dan dikemaskini!');
     }
 
     function deleteClass(classId) {
