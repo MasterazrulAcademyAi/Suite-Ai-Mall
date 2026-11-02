@@ -2433,6 +2433,8 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
               localStorage.setItem('masterazrul_classes', JSON.stringify(syncedClasses));
               localStorage.setItem('masterazrul_classes_source', 'admin_custom');
               console.log('Successfully synced classes from URL payload');
+              // Kemas kini paparan serta-merta pada peranti ini
+              renderClasses();
             }
           } catch (e) {
             console.error('Failed to parse sync payload from URL', e);
@@ -2457,11 +2459,11 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     function copyShareableLink() {
       const classes = getStoredClasses();
       
-      // Bersihkan base64 data URL panjang agar URL kekal pendek dan tidak gagal di WhatsApp
+      // Bersihkan data URL panjang supaya link kemas dan tidak terpotong di WhatsApp
       const compactClasses = classes.map(c => {
         let p = c.poster;
         if (p && p.startsWith('data:')) {
-          p = 'assets/images/manual-google-antigravity.svg';
+          p = (c.id && c.id.includes('video')) ? 'assets/images/5-sistem-prompt-video-ai.jpg' : 'assets/images/manual-google-antigravity.svg';
         }
         return { ...c, poster: p };
       });
@@ -2469,7 +2471,13 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       const jsonStr = JSON.stringify(compactClasses);
       const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
       
-      const baseUrl = window.location.origin + window.location.pathname;
+      // Sentiasa gunakan domain rasmi jika dibuka secara tempatan (file:///)
+      let baseUrl = 'https://masterazrulacademyai.github.io/Suite-Ai-Mall/';
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        baseUrl = window.location.origin + window.location.pathname;
+        if (!baseUrl.endsWith('/')) baseUrl += '/';
+      }
+      
       const shareUrl = `${baseUrl}?sync=${encodeURIComponent(b64)}#kelas`;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
