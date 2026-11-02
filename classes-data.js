@@ -13,7 +13,7 @@ window.MASTERAZRUL_DEFAULT_CLASSES = [
     price: '39.90',
     status: 'open',
     seats: 'Terhad 15 Peserta',
-    poster: 'assets/images/5-sistem-prompt-video-ai.jpg',
+    poster: 'assets/images/kelas-membina-video-ai.jpg',
     whatsapp: '60123456789',
     externalLink: '',
     desc: 'Membina Video AI'
@@ -27,7 +27,7 @@ window.MASTERAZRUL_DEFAULT_CLASSES = [
     price: '39.90',
     status: 'open',
     seats: 'Terhad 15 Peserta',
-    poster: 'assets/images/manual-google-antigravity.svg',
+    poster: 'assets/images/kelas-google-antigravity.jpg',
     whatsapp: '60123456789',
     externalLink: '',
     desc: 'Membina Laman Web/Sistem/Platfrom Pembelajaran'

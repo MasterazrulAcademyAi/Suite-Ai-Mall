@@ -1689,7 +1689,7 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         price: '39.90',
         status: 'open',
         seats: 'Terhad 15 Peserta',
-        poster: 'assets/images/5-sistem-prompt-video-ai.jpg',
+        poster: 'assets/images/kelas-membina-video-ai.jpg',
         whatsapp: '60123456789',
         externalLink: '',
         desc: 'Membina Video AI'
@@ -1703,7 +1703,7 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
         price: '39.90',
         status: 'open',
         seats: 'Terhad 15 Peserta',
-        poster: 'assets/images/manual-google-antigravity.svg',
+        poster: 'assets/images/kelas-google-antigravity.jpg',
         whatsapp: '60123456789',
         externalLink: '',
         desc: 'Membina Laman Web/Sistem/Platfrom Pembelajaran'
@@ -1711,32 +1711,31 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     ];
 
     function getStoredClasses() {
-      // Untuk pengunjung luar / telefon bimbit (bukan sesi admin):
-      // SENTIASA gunakan data kelas rasmi daripada classes-data.js di server!
-      // Ini memastikan mana-mana telefon atau peranti luar yang buka link akan terus melihat kelas terkini secara automatik!
-      if (!isAdminLoggedIn()) {
-        if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
-          // Bersihkan sebarang cache lama dalam telefon pelawat
-          localStorage.setItem('masterazrul_classes', JSON.stringify(window.MASTERAZRUL_DEFAULT_CLASSES));
-          return window.MASTERAZRUL_DEFAULT_CLASSES;
-        }
-        return DEFAULT_CLASSES;
-      }
-
-      // Jika admin sedang login di peranti ini:
+      // 1. Semak jika ada data dalam localStorage
       const stored = localStorage.getItem('masterazrul_classes');
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
+            // Auto-detect & bersihkan sebarang poster dummy lama
+            const hasDummy = parsed.some(c => 
+              c.id === 'cls_antigravity_1' || 
+              (c.poster && (c.poster.includes('5-sistem-prompt') || c.poster.includes('manual-google-antigravity.svg')))
+            );
+            if (!hasDummy) {
+              return parsed;
+            }
           }
-        } catch (e) {
-          console.error('Error parsing stored classes', e);
-        }
+        } catch (e) {}
       }
 
-      return window.MASTERAZRUL_DEFAULT_CLASSES || DEFAULT_CLASSES;
+      // 2. Sentiasa gunakan data kelas rasmi daripada classes-data.js
+      if (window.MASTERAZRUL_DEFAULT_CLASSES && Array.isArray(window.MASTERAZRUL_DEFAULT_CLASSES) && window.MASTERAZRUL_DEFAULT_CLASSES.length > 0) {
+        localStorage.setItem('masterazrul_classes', JSON.stringify(window.MASTERAZRUL_DEFAULT_CLASSES));
+        return window.MASTERAZRUL_DEFAULT_CLASSES;
+      }
+
+      return DEFAULT_CLASSES;
     }
 
     function saveStoredClasses(classes) {
