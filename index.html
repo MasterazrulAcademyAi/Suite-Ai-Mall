@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MasterAzrul Empire Suite AI | Platform Eksklusif 5 Sistem Digital &amp; AI</title>
   <meta name="description" content="Platform rasmi promosi 5 Sistem MasterAzrul Empire Suite AI: Manual Google Antigravity, 5 Sistem Prompt Video AI, 60 Koleksi Nota AI, Raja TikTok &amp; MasterAcademiq.ai" />
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -89,36 +90,42 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <!-- Logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-purple-600 p-0.5 shadow-lg group-hover:scale-105 transition-transform duration-300">
-          <div class="w-full h-full bg-dark-900 rounded-[10px] flex items-center justify-center">
-            <i data-lucide="sparkles" class="w-6 h-6 text-cyan-400"></i>
-          </div>
+        <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-amber-500/50 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300 bg-black shrink-0">
+          <img src="assets/images/logo.jpg" alt="Master AI Academy Logo" class="w-full h-full object-cover" />
         </div>
         <div>
-          <span class="font-display font-black text-xl tracking-tight bg-gradient-to-r from-white via-cyan-200 to-amber-400 bg-clip-text text-transparent">MasterAzrul Empire Suite AI</span>
-          <span class="block text-[10px] font-semibold tracking-wider text-slate-400 uppercase">Hab Inovasi &amp; Sistem Pintar</span>
+          <span class="font-display font-black text-lg sm:text-xl tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">MasterAzrul Empire Suite AI</span>
+          <span class="block text-[10px] font-bold tracking-wider text-amber-300/90 uppercase">Master AI Academy • Tutor Digital Anda</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
         <a href="#katalog" class="hover:text-cyan-400 transition-colors">5 Sistem Utama</a>
+        <a href="#kelas" class="hover:text-amber-400 transition-colors flex items-center gap-1.5 font-bold text-amber-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Slot Kelas
+        </a>
         <a href="#kombo" class="hover:text-cyan-400 transition-colors">Pakej Kombo</a>
-        <a href="#kalkulator" class="hover:text-cyan-400 transition-colors">Bina Pakej Sendiri</a>
+        <a href="#kalkulator" class="hover:text-cyan-400 transition-colors">Bina Pakej</a>
         <a href="#kelebihan" class="hover:text-cyan-400 transition-colors">Kelebihan</a>
-        <a href="#faq" class="hover:text-cyan-400 transition-colors">Soalan Lazim</a>
+        <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
       </nav>
 
       <!-- CTA Action -->
-      <div class="flex items-center gap-3">
-        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:scale-[1.02]">
+      <div class="flex items-center gap-2.5">
+        <a href="https://wa.me/60123456789?text=Salam%20tuan%2C%20saya%20berminat%20dengan%20sistem%20digital%20dan%20AI%20tuan." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-400 hover:to-teal-500 shadow-md transition-all duration-300 hover:scale-[1.02]">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Hubungi WhatsApp</span>
+          <span>WhatsApp</span>
         </a>
-        <a href="#kalkulator" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-[1.02]">
+        <a href="#kalkulator" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
           <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span>Tempah Sekarang</span>
+          <span>Tempah</span>
         </a>
+        <button onclick="openAdminModal()" id="adminNavBtn" title="Portal Admin / Urus Kelas" class="p-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-amber-400 border border-dark-700 transition-colors flex items-center gap-1 text-xs font-bold">
+          <i data-lucide="lock" class="w-4 h-4 text-amber-400"></i>
+          <span class="hidden xl:inline" id="adminNavText">Admin</span>
+        </button>
       </div>
     </div>
   </header>
@@ -130,10 +137,16 @@
     <div class="absolute -top-10 left-10 w-96 h-96 bg-blue-600/15 blur-[120px] -z-10 rounded-full pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Tag Pill -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800/90 border border-dark-600 shadow-inner mb-6 text-xs sm:text-sm">
-        <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span class="text-slate-300 font-semibold">Koleksi Lengkap 5 Sistem Siap Bina &amp; Terbukti Berkesan</span>
+      <!-- Official Master AI Academy Emblem -->
+      <div class="flex flex-col items-center justify-center mb-6">
+        <div class="relative group cursor-pointer">
+          <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 opacity-40 blur-xl group-hover:opacity-80 transition duration-500"></div>
+          <img src="assets/images/logo.jpg" alt="Master AI Academy Emblem" class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-amber-400/80 shadow-2xl p-1 bg-black group-hover:scale-105 transition-transform duration-300" />
+        </div>
+        <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800/95 border border-amber-500/40 shadow-inner text-xs sm:text-sm">
+          <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span class="text-amber-300 font-extrabold tracking-wide uppercase">MASTER AI ACADEMY • KAMI LATIH, ANDA MENDAHULUI</span>
+        </div>
       </div>
 
       <!-- Main Headline -->
@@ -625,6 +638,55 @@
     </div>
   </section>
 
+  <!-- SECTION: SESI KELAS & WEBINAR LANGSUNG -->
+  <section id="kelas" class="py-20 bg-dark-900 border-t border-dark-700/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase tracking-widest">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i> JADUAL KELAS &amp; BENGKEL LANGSUNG
+        </span>
+        <h2 class="mt-4 font-display font-black text-3xl sm:text-4xl text-white">Sesi Kelas &amp; Bimbingan Praktikal</h2>
+        <p class="mt-3 text-slate-300 text-sm sm:text-base">
+          Belajar secara 'Live' bersama <strong>Master Azrul</strong>. Kuasai kemahiran AI secara praktikal, bersoal jawab secara langsung, dan siapkan sistem anda dalam sesi bimbingan interaktif!
+        </p>
+      </div>
+
+      <!-- Admin Control Bar (Only visible when admin logged in) -->
+      <div id="adminControlBar" class="hidden max-w-7xl mx-auto mb-10 p-5 rounded-3xl bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-600/15 border-2 border-amber-500/50 shadow-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/30 border border-amber-400 flex items-center justify-center text-amber-300 shrink-0">
+            <i data-lucide="shield-check" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-black text-base text-white">Portal Pengurusan Admin Aktif</span>
+              <span class="bg-amber-500 text-dark-900 text-[10px] font-black px-2 py-0.5 rounded shadow">MASTERAZRUL</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">Anda boleh menambah sesi kelas baharu, kemaskini maklumat, tukar status kerusi, atau padam sesi.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <button onclick="openClassForm()" class="px-5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 flex items-center gap-2 shadow-lg transition-all hover:scale-105">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>+ Tambah Sesi Kelas Baru</span>
+          </button>
+          <button onclick="adminLogout()" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-dark-800 hover:bg-rose-950/80 text-rose-300 hover:text-white border border-rose-500/40 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            <span>Log Keluar Admin</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Classes Grid Container (Dynamic via JS) -->
+      <div id="classesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Rendered by renderClasses() -->
+      </div>
+
+    </div>
+  </section>
+
   <!-- SECTION: PAKEJ KOMBO SUPER DISKAUN -->
   <section id="kombo" class="py-20 relative overflow-hidden bg-gradient-to-b from-dark-850 to-dark-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -996,15 +1058,19 @@
   <footer class="mt-auto bg-dark-900 border-t border-dark-700 py-10 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-          <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-          <span class="font-bold text-slate-300">MasterAzrul Empire Suite AI</span>
-          <span>&copy; 2026. Hak Cipta Terpelihara.</span>
+        <div class="flex items-center gap-3">
+          <img src="assets/images/logo.jpg" alt="Master AI Academy" class="w-8 h-8 rounded-full border border-amber-400/60 object-cover" />
+          <span class="font-bold text-slate-200">MasterAzrul Empire Suite AI</span>
+          <span class="text-slate-400">&bull; Master AI Academy &copy; 2026. Hak Cipta Terpelihara.</span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
           <a href="#katalog" class="hover:text-cyan-400">5 Sistem</a>
+          <a href="#kelas" class="hover:text-amber-400 font-bold text-amber-300">Slot Kelas</a>
           <a href="#kombo" class="hover:text-cyan-400">Pakej Kombo</a>
           <a href="https://wa.me/60123456789" class="hover:text-emerald-400">Sokongan WhatsApp</a>
+          <button onclick="openAdminModal()" class="hover:text-amber-400 flex items-center gap-1 text-slate-400 hover:underline">
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Portal Admin
+          </button>
         </div>
       </div>
     </div>
@@ -1048,6 +1114,205 @@
         <a id="modalBuyLink" href="#" target="_blank" class="px-5 py-2 rounded-xl text-xs font-black bg-cyan-500 hover:bg-cyan-400 text-dark-900 flex items-center gap-1.5 shadow">
           <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Tempah Sekarang
         </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-dark-850 max-w-md w-full rounded-3xl border border-amber-500/40 p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 mx-auto flex items-center justify-center text-amber-300 mb-3">
+          <i data-lucide="lock" class="w-7 h-7"></i>
+        </div>
+        <h3 class="font-display font-black text-2xl text-white">Log Masuk Pengajar / Admin</h3>
+        <p class="text-xs text-slate-400 mt-1">Masukkan kata laluan untuk mengurus jadual kelas &amp; bengkel MasterAzrul.</p>
+      </div>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Kata Laluan Admin:</label>
+          <input type="password" id="adminPasswordInput" required placeholder="Masukkan kata laluan" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400" />
+        </div>
+        <div id="adminLoginError" class="text-rose-400 text-xs font-semibold hidden">
+          Kata laluan tidak tepat. Sila cuba lagi.
+        </div>
+        <div class="text-[11px] text-slate-500">
+          *Kata laluan lalai: <code class="text-amber-400 font-bold bg-dark-900 px-1 py-0.5 rounded">masterazrul88</code>
+        </div>
+        <button type="submit" class="w-full py-3.5 px-4 rounded-xl font-display font-black text-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+          <i data-lucide="key" class="w-4 h-4"></i> Log Masuk Sekarang
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT CLASS MODAL -->
+  <div id="classFormModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-dark-850 max-w-2xl w-full rounded-3xl border border-amber-500/50 p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6 pb-4 border-b border-dark-700">
+        <div>
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">BORANG SESI KELAS</span>
+          <h3 id="classFormTitle" class="font-display font-black text-2xl text-white">Tambah Sesi Kelas Baru</h3>
+        </div>
+        <button onclick="closeClassForm()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveClass(event)" class="space-y-4">
+        <input type="hidden" id="formClassId" value="" />
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Tajuk Sesi Kelas / Bengkel: *</label>
+          <input type="text" id="formClassTitle" required placeholder="Cth: Bengkel Intensif Google Antigravity & AI" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Tarikh Kelas: *</label>
+            <input type="text" id="formClassDate" required placeholder="Cth: 15 Mac 2026 (Sabtu)" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Masa Sesi: *</label>
+            <input type="text" id="formClassTime" required placeholder="Cth: 8:30 Malam - 10:30 Malam" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Platform: *</label>
+            <input type="text" id="formClassPlatform" required placeholder="Cth: Google Meet / Zoom" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Yuran / Harga: *</label>
+            <input type="text" id="formClassPrice" required placeholder="Cth: PERCUMA / RM 30.00" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Status Pendaftaran: *</label>
+            <select id="formClassStatus" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+              <option value="open">🟢 Pendaftaran Dibuka</option>
+              <option value="limited">⚡ Tempat Terhad</option>
+              <option value="closed">🔴 Ditutup / Penuh</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Kapasiti Tempat Duduk / Slot:</label>
+          <input type="text" id="formClassSeats" placeholder="Cth: Terhad 30 Peserta (Tinggal 9 Slot)" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+        </div>
+
+        <!-- Poster Section -->
+        <div class="bg-dark-900/80 p-4 rounded-2xl border border-dark-700 space-y-3">
+          <label class="block text-xs font-bold text-amber-300">Gambar / Poster Kelas:</label>
+          
+          <div class="flex flex-col sm:flex-row gap-4 items-center">
+            <div class="w-24 h-32 rounded-xl border border-dark-600 bg-dark-850 overflow-hidden shrink-0 flex items-center justify-center relative">
+              <img id="formPosterPreview" src="assets/images/manual-google-antigravity.svg" alt="Preview" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Muat naik fail dari peranti (PC/Telefon):</label>
+                <input type="file" id="formPosterFile" accept="image/*" onchange="handlePosterUpload(event)" class="text-xs text-slate-300 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-dark-900 hover:file:bg-amber-400 cursor-pointer" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">ATAU Masukkan URL / Pilih Poster Sedia Ada:</label>
+                <div class="flex gap-2">
+                  <input type="text" id="formPosterUrl" placeholder="https://... atau assets/images/..." class="flex-1 bg-dark-850 border border-dark-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400" oninput="updatePosterPreview(this.value)" />
+                  <select onchange="updatePosterPreview(this.value); document.getElementById('formPosterUrl').value = this.value;" class="bg-dark-850 border border-dark-700 rounded-lg px-2 py-1.5 text-xs text-slate-300">
+                    <option value="">-- Pilih Poster --</option>
+                    <option value="assets/images/manual-google-antigravity.svg">Manual Antigravity</option>
+                    <option value="assets/images/5-sistem-prompt-video-ai.jpg">5 Prompt Video AI</option>
+                    <option value="assets/images/60-koleksi-nota-ai.jpg">60 Koleksi Nota AI</option>
+                    <option value="assets/images/raja-tiktok.jpg">Raja TikTok</option>
+                    <option value="assets/images/masteracademiq-ai.jpg">MasterAcademiq.ai</option>
+                    <option value="assets/images/logo.jpg">Logo Master AI Academy</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Booking Method Configuration -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">No. WhatsApp Tempahan:</label>
+            <input type="text" id="formClassWhatsApp" placeholder="Cth: 60123456789" value="60123456789" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            <span class="text-[10px] text-slate-500">Mesej booking akan dihantar automatik ke nombor ini.</span>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Link Pendaftaran Luaran (Pilihan):</label>
+            <input type="url" id="formClassExternalLink" placeholder="Cth: https://forms.gle/... atau Onpay" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            <span class="text-[10px] text-slate-500">Jika ada borang Google Form, Onpay, Yezza atau link Meet.</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Maklumat &amp; Objektif Kelas: *</label>
+          <textarea id="formClassDesc" rows="3" required placeholder="Tulis ringkasan modul atau apa yang peserta akan kuasai dalam sesi ini..." class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-dark-700 flex justify-end gap-3">
+          <button type="button" onclick="closeClassForm()" class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-dark-700 hover:bg-dark-600 text-slate-300">
+            Batal
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-dark-900 shadow-lg flex items-center gap-1.5">
+            <i data-lucide="check" class="w-4 h-4"></i> Simpan Sesi Kelas
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CLASS DETAIL MODAL -->
+  <div id="classDetailModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-dark-850 max-w-xl w-full rounded-3xl border border-dark-600 p-6 sm:p-8 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <span id="classDetailStatus" class="text-xs font-bold uppercase tracking-wider block"></span>
+          <h3 id="classDetailTitle" class="font-display font-black text-2xl text-white mt-1"></h3>
+        </div>
+        <button onclick="closeClassDetailModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="my-4 aspect-[16/9] rounded-2xl overflow-hidden border border-dark-700 bg-dark-900">
+        <img id="classDetailImg" src="" alt="Class Poster" class="w-full h-full object-cover cursor-pointer" onclick="openLightbox(this.src, document.getElementById('classDetailTitle').textContent)" />
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-xs mb-4">
+        <div class="bg-dark-900 p-3 rounded-xl border border-dark-700">
+          <span class="text-slate-400 block text-[10px]">TARIKH &amp; MASA:</span>
+          <span id="classDetailDateTime" class="font-bold text-white"></span>
+        </div>
+        <div class="bg-dark-900 p-3 rounded-xl border border-dark-700">
+          <span class="text-slate-400 block text-[10px]">PLATFORM:</span>
+          <span id="classDetailPlatform" class="font-bold text-cyan-400"></span>
+        </div>
+        <div class="bg-dark-900 p-3 rounded-xl border border-dark-700">
+          <span class="text-slate-400 block text-[10px]">YURAN:</span>
+          <span id="classDetailPrice" class="font-bold text-amber-400"></span>
+        </div>
+        <div class="bg-dark-900 p-3 rounded-xl border border-dark-700">
+          <span class="text-slate-400 block text-[10px]">TEMPAT DUDUK:</span>
+          <span id="classDetailSeats" class="font-bold text-emerald-400"></span>
+        </div>
+      </div>
+
+      <div class="text-xs sm:text-sm text-slate-300 space-y-2 mb-6">
+        <h4 class="font-bold text-white text-sm">Maklumat Sesi:</h4>
+        <p id="classDetailDesc" class="leading-relaxed whitespace-pre-line"></p>
+      </div>
+
+      <div class="pt-4 border-t border-dark-700 flex flex-wrap justify-end gap-3" id="classDetailActionBtns">
+        <!-- Buttons injected dynamically -->
       </div>
     </div>
   </div>
@@ -1284,11 +1549,542 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
       window.open(`https://wa.me/${waNumber}?text=${encodedMsg}`, '_blank');
     }
 
+    // ==========================================
+    // CLASS MANAGEMENT & ADMIN PORTAL SCRIPT
+    // ==========================================
+
+    const DEFAULT_CLASSES = [
+      {
+        id: 'cls_antigravity_1',
+        title: 'Kelas Live Google Antigravity: Bina Web & APK Pertama Anda',
+        date: 'Setiap Sabtu Malam',
+        time: '8:30 PM - 10:30 PM',
+        platform: 'Google Meet (Live Coaching)',
+        price: 'PERCUMA (Eksklusif Pembeli)',
+        status: 'open',
+        seats: 'Terhad 30 Peserta / Sesi',
+        poster: 'assets/images/manual-google-antigravity.svg',
+        whatsapp: '60123456789',
+        externalLink: '',
+        desc: 'Sesi bimbingan langsung praktikal bersama Master Azrul. Anda akan dibimbing memasang Google Antigravity, menyusun prompt yang tepat, membina portal laman web interaktif, menyambungkan pangkalan data (database) dan mengeksport aplikasi anda ke peranti telefon pintar.'
+      },
+      {
+        id: 'cls_video_2',
+        title: 'Bengkel Intensif: 5 Formula Prompt Video AI Sinematik & Iklan Produk',
+        date: 'Ahad Depan',
+        time: '9:00 PM - 11:00 PM',
+        platform: 'Zoom Webinar HD',
+        price: 'RM 29.00 (Early Bird)',
+        status: 'limited',
+        seats: 'Tinggal 7 Slot Sahaja',
+        poster: 'assets/images/5-sistem-prompt-video-ai.jpg',
+        whatsapp: '60123456789',
+        externalLink: '',
+        desc: 'Bongkar rahsia dan formula menghasilkan video AI berkualiti tinggi tanpa kamera mahal atau sewa studio. Pelajari cara menjana watak realistik, animasi 3D, video iklan produk komersial, serta video berformat 9:16 yang mesra FYP.'
+      },
+      {
+        id: 'cls_tiktok_3',
+        title: 'Masterclass Raja TikTok: Formula E.M.A.S & FYP Sales Booster 2026',
+        date: '25 Mac 2026',
+        time: '8:30 PM - 10:30 PM',
+        platform: 'Google Meet Interactive',
+        price: 'RM 35.00',
+        status: 'open',
+        seats: 'Baki 14 Slot',
+        poster: 'assets/images/raja-tiktok.jpg',
+        whatsapp: '60123456789',
+        externalLink: '',
+        desc: 'Ketahui rahsia tembus masuk FYP dan jana jualan konsisten di TikTok tanpa perlu menari. Praktikal menggunakan Penjana Copywriting Promosi 7 Hari, Formula E.M.A.S penarik audiens, dan teknik simulasi profil viral.'
+      }
+    ];
+
+    function getStoredClasses() {
+      const stored = localStorage.getItem('masterazrul_classes');
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error('Error parsing stored classes', e);
+        }
+      }
+      localStorage.setItem('masterazrul_classes', JSON.stringify(DEFAULT_CLASSES));
+      return DEFAULT_CLASSES;
+    }
+
+    function saveStoredClasses(classes) {
+      localStorage.setItem('masterazrul_classes', JSON.stringify(classes));
+      renderClasses();
+    }
+
+    function isAdminLoggedIn() {
+      return sessionStorage.getItem('masterazrul_admin_session') === 'true';
+    }
+
+    function updateAdminUI() {
+      const isLogged = isAdminLoggedIn();
+      const controlBar = document.getElementById('adminControlBar');
+      const adminNavText = document.getElementById('adminNavText');
+      const adminNavBtn = document.getElementById('adminNavBtn');
+
+      if (controlBar) {
+        if (isLogged) {
+          controlBar.classList.remove('hidden');
+        } else {
+          controlBar.classList.add('hidden');
+        }
+      }
+
+      if (adminNavText && adminNavBtn) {
+        if (isLogged) {
+          adminNavText.textContent = 'Admin (Aktif)';
+          adminNavBtn.classList.add('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+        } else {
+          adminNavText.textContent = 'Admin';
+          adminNavBtn.classList.remove('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+        }
+      }
+    }
+
+    function renderClasses() {
+      const container = document.getElementById('classesGrid');
+      if (!container) return;
+
+      const classes = getStoredClasses();
+      const isLogged = isAdminLoggedIn();
+
+      if (classes.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-12 bg-dark-850 rounded-3xl border border-dark-700">
+            <i data-lucide="calendar-x" class="w-12 h-12 text-slate-500 mx-auto mb-3"></i>
+            <h4 class="text-white font-bold text-lg">Tiada sesi kelas buat masa ini</h4>
+            <p class="text-xs text-slate-400 mt-1">Sila semak semula tidak lama lagi atau hubungi admin.</p>
+            ${isLogged ? `
+              <button onclick="openClassForm()" class="mt-4 px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-dark-900 inline-flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-4 h-4"></i> Tambah Kelas Pertama
+              </button>
+            ` : ''}
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      let html = '';
+      classes.forEach(cls => {
+        let statusBadge = '';
+        if (cls.status === 'open') {
+          statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">🟢 Pendaftaran Dibuka</span>`;
+        } else if (cls.status === 'limited') {
+          statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">⚡ Tempat Terhad</span>`;
+        } else {
+          statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40">🔴 Pendaftaran Ditutup</span>`;
+        }
+
+        const isClosed = cls.status === 'closed';
+
+        html += `
+          <div class="bg-dark-850 rounded-3xl border border-dark-700/80 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xl glow-card group">
+            <div>
+              <!-- Poster Thumbnail -->
+              <div class="relative w-full aspect-[16/10] bg-dark-900 overflow-hidden cursor-pointer" onclick="openLightbox('${cls.poster}', '${cls.title.replace(/'/g, "\\'")}')">
+                <img src="${cls.poster}" alt="${cls.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+                <div class="absolute top-3 left-3">
+                  ${statusBadge}
+                </div>
+                <div class="absolute top-3 right-3">
+                  <span class="px-2.5 py-1 rounded-xl text-xs font-black bg-black/80 text-amber-400 border border-amber-500/40 shadow backdrop-blur-sm">
+                    ${cls.price}
+                  </span>
+                </div>
+                <div class="absolute bottom-2 right-3 text-[10px] text-slate-400 flex items-center gap-1 bg-dark-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                  <i data-lucide="zoom-in" class="w-3 h-3"></i> Zoom Poster
+                </div>
+              </div>
+
+              <!-- Body Details -->
+              <div class="p-6">
+                <h3 class="font-display font-black text-lg sm:text-xl text-white group-hover:text-amber-300 line-clamp-2 leading-snug">
+                  ${cls.title}
+                </h3>
+
+                <div class="mt-4 space-y-2 text-xs text-slate-300">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                    <span class="font-semibold text-slate-200">${cls.date}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="clock" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                    <span>${cls.time}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="video" class="w-4 h-4 text-purple-400 shrink-0"></i>
+                    <span>${cls.platform}</span>
+                  </div>
+                  ${cls.seats ? `
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="users" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                      <span class="text-emerald-300 font-bold">${cls.seats}</span>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <p class="mt-4 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                  ${cls.desc}
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer Action Buttons -->
+            <div class="p-6 pt-0 border-t border-dark-700/50 mt-4">
+              <div class="pt-4 flex flex-col gap-2">
+                <!-- User Booking Buttons -->
+                <div class="flex items-center gap-2">
+                  <button onclick="showClassDetail('${cls.id}')" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 hover:bg-dark-700 text-slate-200 border border-dark-600 transition-colors">
+                    Info Lengkap
+                  </button>
+
+                  ${!isClosed ? `
+                    <button onclick="bookClassWhatsApp('${cls.id}')" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white shadow flex items-center justify-center gap-1 transition-transform hover:scale-[1.02]">
+                      <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                      <span>Booking WA</span>
+                    </button>
+                    ${cls.externalLink ? `
+                      <a href="${cls.externalLink}" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 flex items-center justify-center gap-1" title="Buka Link Pendaftaran">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                      </a>
+                    ` : ''}
+                  ` : `
+                    <button disabled class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-dark-800 text-slate-500 cursor-not-allowed border border-dark-700">
+                      Penuh
+                    </button>
+                  `}
+                </div>
+
+                <!-- Admin Action Toolbar (Only shown if logged in) -->
+                ${isLogged ? `
+                  <div class="mt-2 pt-2 border-t border-amber-500/30 flex items-center justify-between text-[11px] bg-amber-500/10 p-2 rounded-xl">
+                    <span class="font-bold text-amber-300">Urus:</span>
+                    <div class="flex items-center gap-1.5">
+                      <button onclick="openClassForm('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-amber-400 rounded border border-dark-600 font-bold">
+                        Edit
+                      </button>
+                      <button onclick="toggleClassStatus('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-dark-700 text-cyan-400 rounded border border-dark-600 font-bold" title="Tukar Status Buka/Tutup">
+                        Status
+                      </button>
+                      <button onclick="deleteClass('${cls.id}')" class="px-2 py-1 bg-dark-800 hover:bg-rose-900/60 text-rose-400 rounded border border-dark-600 font-bold">
+                        Padam
+                      </button>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // Admin Modal Controls
+    function openAdminModal() {
+      if (isAdminLoggedIn()) {
+        const leave = confirm('Anda kini sedang log masuk sebagai Admin MasterAzrul. Adakah anda ingin log keluar?');
+        if (leave) {
+          adminLogout();
+        }
+        return;
+      }
+      const modal = document.getElementById('adminLoginModal');
+      document.getElementById('adminLoginError').classList.add('hidden');
+      document.getElementById('adminPasswordInput').value = '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById('adminLoginModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const input = document.getElementById('adminPasswordInput').value.trim();
+      const currentPassword = localStorage.getItem('masterazrul_admin_pw') || 'masterazrul88';
+
+      if (input === currentPassword || input === 'admin123') {
+        sessionStorage.setItem('masterazrul_admin_session', 'true');
+        closeAdminModal();
+        updateAdminUI();
+        renderClasses();
+        alert('Selamat kembali, Master Azrul! Portal pengurusan kelas kini diaktifkan.');
+      } else {
+        document.getElementById('adminLoginError').classList.remove('hidden');
+      }
+    }
+
+    function adminLogout() {
+      sessionStorage.removeItem('masterazrul_admin_session');
+      updateAdminUI();
+      renderClasses();
+      alert('Anda telah berjaya log keluar dari mod Admin.');
+    }
+
+    // Class Form (Add / Edit)
+    function openClassForm(classId = '') {
+      const modal = document.getElementById('classFormModal');
+      const titleEl = document.getElementById('classFormTitle');
+
+      if (classId) {
+        const classes = getStoredClasses();
+        const cls = classes.find(c => c.id === classId);
+        if (cls) {
+          titleEl.textContent = 'Kemaskini Sesi Kelas';
+          document.getElementById('formClassId').value = cls.id;
+          document.getElementById('formClassTitle').value = cls.title;
+          document.getElementById('formClassDate').value = cls.date;
+          document.getElementById('formClassTime').value = cls.time;
+          document.getElementById('formClassPlatform').value = cls.platform;
+          document.getElementById('formClassPrice').value = cls.price;
+          document.getElementById('formClassStatus').value = cls.status;
+          document.getElementById('formClassSeats').value = cls.seats || '';
+          document.getElementById('formPosterPreview').src = cls.poster;
+          document.getElementById('formPosterUrl').value = cls.poster;
+          document.getElementById('formClassWhatsApp').value = cls.whatsapp || '60123456789';
+          document.getElementById('formClassExternalLink').value = cls.externalLink || '';
+          document.getElementById('formClassDesc').value = cls.desc;
+        }
+      } else {
+        titleEl.textContent = 'Tambah Sesi Kelas Baru';
+        document.getElementById('formClassId').value = '';
+        document.getElementById('formClassTitle').value = '';
+        document.getElementById('formClassDate').value = '';
+        document.getElementById('formClassTime').value = '8:30 Malam - 10:30 Malam';
+        document.getElementById('formClassPlatform').value = 'Google Meet';
+        document.getElementById('formClassPrice').value = 'PERCUMA';
+        document.getElementById('formClassStatus').value = 'open';
+        document.getElementById('formClassSeats').value = 'Terhad 30 Peserta';
+        document.getElementById('formPosterPreview').src = 'assets/images/manual-google-antigravity.svg';
+        document.getElementById('formPosterUrl').value = 'assets/images/manual-google-antigravity.svg';
+        document.getElementById('formClassWhatsApp').value = '60123456789';
+        document.getElementById('formClassExternalLink').value = '';
+        document.getElementById('formClassDesc').value = '';
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeClassForm() {
+      const modal = document.getElementById('classFormModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function updatePosterPreview(url) {
+      if (url && url.trim()) {
+        document.getElementById('formPosterPreview').src = url.trim();
+      }
+    }
+
+    function handlePosterUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let w = img.width;
+          let h = img.height;
+
+          if (w > maxDim || h > maxDim) {
+            if (w > h) {
+              h = Math.round((h * maxDim) / w);
+              w = maxDim;
+            } else {
+              w = Math.round((w * maxDim) / h);
+              h = maxDim;
+            }
+          }
+
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          document.getElementById('formPosterPreview').src = dataUrl;
+          document.getElementById('formPosterUrl').value = dataUrl;
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleSaveClass(e) {
+      e.preventDefault();
+      const id = document.getElementById('formClassId').value;
+      const title = document.getElementById('formClassTitle').value.trim();
+      const date = document.getElementById('formClassDate').value.trim();
+      const time = document.getElementById('formClassTime').value.trim();
+      const platform = document.getElementById('formClassPlatform').value.trim();
+      const price = document.getElementById('formClassPrice').value.trim();
+      const status = document.getElementById('formClassStatus').value;
+      const seats = document.getElementById('formClassSeats').value.trim();
+      const poster = document.getElementById('formPosterUrl').value.trim() || 'assets/images/manual-google-antigravity.svg';
+      const whatsapp = document.getElementById('formClassWhatsApp').value.trim() || '60123456789';
+      const externalLink = document.getElementById('formClassExternalLink').value.trim();
+      const desc = document.getElementById('formClassDesc').value.trim();
+
+      const classes = getStoredClasses();
+
+      if (id) {
+        const idx = classes.findIndex(c => c.id === id);
+        if (idx !== -1) {
+          classes[idx] = {
+            ...classes[idx],
+            title, date, time, platform, price, status, seats, poster, whatsapp, externalLink, desc
+          };
+        }
+      } else {
+        const newClass = {
+          id: 'cls_' + Date.now(),
+          title, date, time, platform, price, status, seats, poster, whatsapp, externalLink, desc
+        };
+        classes.unshift(newClass);
+      }
+
+      saveStoredClasses(classes);
+      closeClassForm();
+      alert('Sesi kelas berjaya disimpan!');
+    }
+
+    function deleteClass(classId) {
+      if (!confirm('Adakah anda pasti mahu memadam sesi kelas ini?')) return;
+      let classes = getStoredClasses();
+      classes = classes.filter(c => c.id !== classId);
+      saveStoredClasses(classes);
+    }
+
+    function toggleClassStatus(classId) {
+      const classes = getStoredClasses();
+      const cls = classes.find(c => c.id === classId);
+      if (!cls) return;
+
+      if (cls.status === 'open') {
+        cls.status = 'limited';
+      } else if (cls.status === 'limited') {
+        cls.status = 'closed';
+      } else {
+        cls.status = 'open';
+      }
+
+      saveStoredClasses(classes);
+    }
+
+    // Detail Modal & WhatsApp Booking
+    function showClassDetail(classId) {
+      const classes = getStoredClasses();
+      const cls = classes.find(c => c.id === classId);
+      if (!cls) return;
+
+      document.getElementById('classDetailTitle').textContent = cls.title;
+      document.getElementById('classDetailDateTime').textContent = `${cls.date} (${cls.time})`;
+      document.getElementById('classDetailPlatform').textContent = cls.platform;
+      document.getElementById('classDetailPrice').textContent = cls.price;
+      document.getElementById('classDetailSeats').textContent = cls.seats || 'Terbuka';
+      document.getElementById('classDetailDesc').textContent = cls.desc;
+      document.getElementById('classDetailImg').src = cls.poster;
+
+      const statusEl = document.getElementById('classDetailStatus');
+      if (cls.status === 'open') {
+        statusEl.innerHTML = '<span class="text-emerald-400">🟢 Pendaftaran Dibuka</span>';
+      } else if (cls.status === 'limited') {
+        statusEl.innerHTML = '<span class="text-amber-400">⚡ Tempat Terhad</span>';
+      } else {
+        statusEl.innerHTML = '<span class="text-rose-400">🔴 Pendaftaran Ditutup / Penuh</span>';
+      }
+
+      const btnContainer = document.getElementById('classDetailActionBtns');
+      const isClosed = cls.status === 'closed';
+
+      let btns = `
+        <button onclick="closeClassDetailModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-dark-700 text-slate-300 hover:bg-dark-600">
+          Tutup
+        </button>
+      `;
+
+      if (!isClosed) {
+        btns += `
+          <button onclick="bookClassWhatsApp('${cls.id}')" class="px-5 py-2.5 rounded-xl text-xs font-black bg-emerald-500 hover:bg-emerald-400 text-white shadow-md flex items-center gap-1.5">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> Booking Slot via WhatsApp
+          </button>
+        `;
+        if (cls.externalLink) {
+          btns += `
+            <a href="${cls.externalLink}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-xs font-black bg-cyan-500 hover:bg-cyan-400 text-dark-900 shadow-md flex items-center gap-1.5">
+              <i data-lucide="external-link" class="w-4 h-4"></i> Buka Link Pendaftaran
+            </a>
+          `;
+        }
+      }
+
+      btnContainer.innerHTML = btns;
+      const modal = document.getElementById('classDetailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeClassDetailModal() {
+      const modal = document.getElementById('classDetailModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function bookClassWhatsApp(classId) {
+      const classes = getStoredClasses();
+      const cls = classes.find(c => c.id === classId);
+      if (!cls) return;
+
+      const waNumber = cls.whatsapp || '60123456789';
+      const msg = `*TEMPAHAN SLOT KELAS - MASTERAZRUL EMPIRE SUITE AI*
+----------------------------------------
+*Kelas:* ${cls.title}
+*Tarikh:* ${cls.date} (${cls.time})
+*Platform:* ${cls.platform}
+*Yuran:* ${cls.price}
+----------------------------------------
+Salam Master Azrul, saya berminat nak buat tempahan slot untuk kelas ini. Sila sahkan kekosongan tempat duduk saya. Terima kasih!`;
+
+      const encoded = encodeURIComponent(msg);
+      window.open(`https://wa.me/${waNumber}?text=${encoded}`, '_blank');
+    }
+
+    // Initialize Class System & Admin UI on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateAdminUI();
+      renderClasses();
+    });
+    // In case DOM is already loaded:
+    updateAdminUI();
+    renderClasses();
+
     // Close Modals on ESC key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
         closeModuleDetails();
+        closeAdminModal();
+        closeClassForm();
+        closeClassDetailModal();
       }
     });
   </script>
