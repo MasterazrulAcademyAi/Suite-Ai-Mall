@@ -1671,6 +1671,14 @@ Salam tuan, saya ingin sahkan tempahan ini. Mohon berikan maklumat pembayaran & 
     // CLASS MANAGEMENT & ADMIN PORTAL SCRIPT
     // ==========================================
 
+    // Auto-purge sebarang cache data dummy lama pada semua peranti
+    try {
+      const legacyCache = localStorage.getItem('masterazrul_classes');
+      if (legacyCache && legacyCache.includes('cls_antigravity_1')) {
+        localStorage.removeItem('masterazrul_classes');
+      }
+    } catch (e) {}
+
     const DEFAULT_CLASSES = [
       {
         id: 'cls_video_ai',
